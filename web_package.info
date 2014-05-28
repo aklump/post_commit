@@ -1,0 +1,4 @@
+name = "Post Commit"
+description = "A post commit scheduler/runner for git repo pulling and auto deployment."
+version = 0.0.1
+author = Aaron Klump <sourcecode@intheloftstudios.com>
