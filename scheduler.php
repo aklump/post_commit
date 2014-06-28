@@ -30,7 +30,10 @@ if ($access) {
     $conf['job_cmds']['*'][] = $conf['job_cmd'];
   }
 
-  if (!empty($conf['job_cmds']) && ($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
+  if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
+    $log->append('Invalid log configuration.');
+  }
+  elseif (!empty($conf['job_cmds']) && $jobs) {
     foreach ($conf['job_cmds'] as $group => $commands) {
       if ($group === '*' || $group === $json->ref) {
         foreach ($commands as $cmd) {
