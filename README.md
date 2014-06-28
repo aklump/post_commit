@@ -3,9 +3,9 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 
 ## Installation
 1. Save the contents of this project one level above web root in _bin/post_commit_.
-1. Move _scheduler.php_ into the webroot of your server and modify the line below to point to the correct _autoload.php_ file.
-        
-        require_once dirname(__FILE__) . '/../bin/post_commit/vendor/autoload.php';
+1. Navigate to your webroot and create a symlink to _schedule.php_: something like this:
+
+        ln -s ../bin/post_commit/scheduler.php .
 
 1. Make adjustements to _config.php_.
 1. Set up a cron job to execute _runner.php_ (see below).
@@ -29,6 +29,9 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 This should be pinged by a post commit hook on the origin repo via https and including the secret key.
 
 ### Testing
+1. Place the url you've created in a browser and look for output.
+2. If the screen is white, look in your server error logs.
+
 You can trigger a single branch response by appending the following to the url, for the purposes of testing.
 
     ?ref=refs/heads/master

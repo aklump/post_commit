@@ -4,7 +4,7 @@
  * Ping handler for gitlab.com post-commit hook to schedule a develop pull job.
  */
 use \AKlump\PostCommit\Logger;
-require_once dirname(__FILE__) . '/../bin/post_commit/vendor/autoload.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 // Make a note that we got hit.
 $log = new Logger($conf['logs_dir'] . '/orders.txt');
