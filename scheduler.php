@@ -30,6 +30,7 @@ if ($access) {
     $conf['job_cmds']['*'][] = $conf['job_cmd'];
   }
 
+  $total_added = 0;
   if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
     $log->append('Invalid log configuration.');
   }
@@ -39,12 +40,16 @@ if ($access) {
         foreach ($commands as $cmd) {
           fwrite($jobs, $cmd . PHP_EOL);
           $log->header();
-          $log->append('job added: ' . $cmd);      
+          ++$total_added;
         }
       }
     }
   }
   fclose($jobs);
+
+  if ($total_added) {
+    $log->append('jobs added: ' . $total_added);
+  }
 }
 else {
   header("HTTP/1.0 401 Access Denied");
