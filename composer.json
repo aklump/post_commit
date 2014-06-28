@@ -2,7 +2,7 @@
   "name": "aklump/post_commit",
   "type": "library",
   "description": "A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.",
-  "keywords": ["post_commit_hooks", "git", "auto-deploy"],
+  "keywords": ["post commit hooks", "git", "auto-deploy"],
   "homepage": "http://github.com/aklump/post_commit",
   "license": "BSD-3-Clause",
   "authors": [
@@ -19,6 +19,6 @@
 
   "autoload": {
     "psr-0": {"AKlump\\": "src/"},
-    "files": ["config.php"]
+    "files": ["config.php", "bootstrap.php"]
   }
 }

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $baseDir . '/config.php',
+    $baseDir . '/bootstrap.php',
 );
