@@ -48,6 +48,8 @@ This should be the target of a frequent cron job being run by the same user that
     
 ## orders.txt
 
+**You can truncate all text files without messing up perms using _reset.php_.**
+
 A log of incoming orders post commit hooks.
 
 ## complete.txt

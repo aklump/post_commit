@@ -23,13 +23,16 @@ while ($cmd = fgets($fh)) {
     continue;
   }
   $log->append(str_repeat('=', 80));
+  $now = new \DateTime('now', new \DateTimeZone($conf['timezone_name']));
+  $log->append($now->format('r'));
   $log->append($cmd);
   $log->append(str_repeat('-', 80));
   print $log->view();
 
   $process_handle = popen("$cmd 2>&1", 'r');
-  $result = stream_get_contents($process_handle);
-  $log->append($result);
+  if ($result = stream_get_contents($process_handle)) {
+    $log->append($result);  
+  }
   pclose($process_handle);
 
   $previous_job = $cmd;

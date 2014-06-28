@@ -19,6 +19,6 @@
 
   "autoload": {
     "psr-0": {"AKlump\\": "src/"},
-    "files": ["config.php"]
+    "files": ["config.php", "bootstrap.php"]
   }
 }

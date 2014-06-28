@@ -24,7 +24,7 @@ $conf['secret']   = 'add_some_secret_here_for_the_url';
  *   branch.  This value must match the value coming in, in the json as the ref
  *   value.
  */
-$conf['job_cmds'] = array(
+$conf['jobs'] = array(
 
   // For any branch commit.
   '*' => array(
@@ -44,5 +44,6 @@ $conf['job_cmds'] = array(
 
 //
 // Advanced settings
-$conf['logs_dir'] = dirname(__FILE__) . '/logs';
-$conf['jobber']   = new Jobber($conf['logs_dir'] . '/pending.txt');
+$conf['logs_dir']       = dirname(__FILE__) . '/logs';
+$conf['jobber']         = new Jobber($conf['logs_dir'] . '/pending.txt');
+$conf['timezone_name']  = 'UTC';

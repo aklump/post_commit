@@ -32,15 +32,15 @@ if ($access) {
 
   // Legacy support from version 0.2
   if (isset($conf['job_cmd'])) {
-    $conf['job_cmds']['*'][] = $conf['job_cmd'];
+    $conf['jobs']['*'][] = $conf['job_cmd'];
   }
 
   $total_added = 0;
   if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
     $log->append('Invalid log configuration.');
   }
-  elseif (!empty($conf['job_cmds']) && $jobs) {
-    foreach ($conf['job_cmds'] as $group => $commands) {
+  elseif (!empty($conf['jobs']) && $jobs) {
+    foreach ($conf['jobs'] as $group => $commands) {
       if ($group === '*' || $group === $json->ref) {
         foreach ($commands as $cmd) {
           fwrite($jobs, $cmd . PHP_EOL);
