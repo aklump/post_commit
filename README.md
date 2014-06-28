@@ -9,6 +9,7 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 
 1. Make adjustements to _config.php_.
 1. Set up a cron job to execute _runner.php_ (see below).
+1. Rename _logs_default_ to _logs_.
 1. Set the correct permissions on _bin/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.
 
         drwxr-xr-x 2 aklump apache 4.0K May 28 17:02 .
