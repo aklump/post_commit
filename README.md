@@ -10,13 +10,17 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 1. Make adjustements to _config.php_.
 1. Set up a cron job to execute _runner.php_ (see below).
 1. Create a dir called _bin/post_commit/logs_.
-1. Set the correct ownership and permissions on _bin/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.
+1. Create each of these files:
+
+        touch complete.txt orders.txt pending.txt
+
+1. Set the correct ownership and permissions on _bin/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.  Other needs no permissions.
 
         drwxr-xr-x 2 aklump apache 4.0K May 28 17:02 .
         drwxr-xr-x 5 aklump staff  4.0K May 28 17:01 ..
-        -rw-rw-r-- 1 aklump apache    0 May 28 17:16 complete.txt
-        -rw-rw-r-- 1 aklump apache    0 May 28 17:16 orders.txt
-        -rw-rw-r-- 1 aklump apache    0 May 28 17:16 pending.txt      
+        -rw-rw---- 1 aklump apache    0 May 28 17:16 complete.txt
+        -rw-rw---- 1 aklump apache    0 May 28 17:16 orders.txt
+        -rw-rw---- 1 aklump apache    0 May 28 17:16 pending.txt      
 
 1. Compile the post commit hook url and add it to your github project.  Make sure to use https.
 
@@ -58,3 +62,15 @@ The commands that have not yet been executed by cron.  This file should get empt
 Don't just delete the log files as permissions are bit tricky; instead use the reset script.
 
     php reset.php
+
+## Troubleshooting
+
+### Jobs get scheduled but not run?
+1. Check to make sure the the logs directory and all log files are owned by the cron user and the group is the php user and that both user and group has rw permissions.
+
+1. Does the git repo require a passphrase for pulling?  You will have to disable that.
+
+1. Try logging in to the server as the cron user and running the command.
+
+1. Make sure you can git pull manually using your ssh keys, etc.
+

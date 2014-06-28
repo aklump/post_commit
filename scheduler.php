@@ -15,7 +15,12 @@ $access = !empty($_GET['key']) && $_GET['key'] === $conf['secret'];
 // If access then we'll schedule the job.
 if ($access) {
 
-  $json = json_decode(file_get_contents("php://input"));
+  $json = file_get_contents("php://input");
+  
+  // Dump this for troubleshooting purposes.
+  file_put_contents($conf['logs_dir'] . '/last.json', $json);
+
+  $json = json_decode($json);
 
   // Allow testing in the url via ?ref=refs/heads/master.
   if (isset($_GET['ref'])) {
