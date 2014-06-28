@@ -16,12 +16,30 @@ $access = !empty($_GET['key']) && $_GET['key'] === $conf['secret'];
 if ($access) {
 
   $json = json_decode(file_get_contents("php://input"));
-  $log->append('Gitlab user: ' . $json->user_name . ' (' . $json->user_id . ')');
 
-  if ($conf['job_cmd'] && ($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
-    fwrite($jobs, $conf['job_cmd'] . PHP_EOL);
-    $log->header();
-    $log->append('job added: ' . $conf['job_cmd']);
+  // Allow testing in the url via ?ref=refs/heads/master.
+  if (isset($_GET['ref'])) {
+    $json->ref = $_GET['ref'];
+  }
+
+  $log->append('Gitlab user: ' . $json->user_name . ' (' . $json->user_id . ')');
+  $log->append('ref: ' . $json->ref);
+
+  // Legacy support from version 0.2
+  if (isset($conf['job_cmd'])) {
+    $conf['job_cmds']['*'][] = $conf['job_cmd'];
+  }
+
+  if (!empty($conf['job_cmds']) && ($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
+    foreach ($conf['job_cmds'] as $group => $commands) {
+      if ($group === '*' || $group === $json->ref) {
+        foreach ($commands as $cmd) {
+          fwrite($jobs, $cmd . PHP_EOL);
+          $log->header();
+          $log->append('job added: ' . $cmd);      
+        }
+      }
+    }
   }
   fclose($jobs);
 }

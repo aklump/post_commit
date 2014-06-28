@@ -26,6 +26,11 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 ## scheduler.php
 
 This should be pinged by a post commit hook on the origin repo via https and including the secret key.
+
+### Testing
+You can trigger a single branch response by appending the following to the url, for the purposes of testing.
+
+    ?ref=refs/heads/master
     
 ## runner.php
 
