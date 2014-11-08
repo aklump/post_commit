@@ -37,8 +37,8 @@ if ($access) {
     ->setRef($json->ref);
 
   $log->append('Gitlab user: ' . $json->user_name . ' (' . $json->user_id . ')');
+  $log->append('repo: ' . $json->repository->name);
   $log->append('ref: ' . $json->ref);
-  $log->append('name: ' . $json->repository->name);
 
   $total_added = 0;
   if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
