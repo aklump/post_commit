@@ -13,7 +13,7 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 1. Create a dir called `bin/post_commit/logs`.
 1. Create each of these files:
 
-        touch complete.txt orders.txt pending.txt
+        touch complete.txt orders.txt pending.txt cron.txt
 
 1. Set the correct ownership and permissions on _bin/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user (you can see this by visiting the testing url per directions below) who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.  Other needs no permissions.
 
@@ -49,10 +49,15 @@ You can trigger a single branch response by appending the following to the url, 
 
 ## runner.php
 
-This should be the target of a frequent cron job being run by the same user that is owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.
+This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
 
-    * * * * * /usr/bin/php /var/www/intheloftstudios.com/public_html/runner.php > /dev/null
+    * * * * * /usr/bin/php /home/user/mysite/bin/post_commit/runner.php >> /home/user/mysite/bin/post_commit/logs/cron.txt
     
+
+Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete `logs/cron.txt` at this point.
+
+    * * * * * /usr/bin/php /home/user/mysite/bin/post_commit/runner.php > /dev/null
+
 ## orders.txt
 
 **You can truncate all text files without messing up perms using _reset.php_.**
