@@ -13,7 +13,7 @@ global $conf;
  *
  * @var string
  */
-$conf['secret']   = 'add_some_secret_here_for_the_url';
+$conf['secret'] = 'add_some_secret_here_for_the_url';
 
 /**
  * Defines what commands to call in response to commits
@@ -24,12 +24,12 @@ $conf['secret']   = 'add_some_secret_here_for_the_url';
  *   branch.  This value must match the value coming in, in the json as the ref
  *   value.
  */
-$conf['jobs'] = array(
+
+// This will respond to all repositories
+$conf['jobs']['*'] = array(
 
   // For any branch commit.
-  '*' => array(
-    
-  ),
+  '*' => array(),
 
   // One or more commands to execute if the commit was made to master.
   'refs/heads/master' => array(
@@ -39,6 +39,15 @@ $conf['jobs'] = array(
   // One or more commands ... to develop.
   'refs/heads/develop' => array(
     '/var/www/dev.website.org/pull_develop.sh'
+  ),
+);
+
+// To target only a single repo by name replace '*' with remo name:
+$conf['jobs']['jquery.slim_time'] = array(
+  
+  // Jobs to schedule wehn the master is pushed
+  'refs/heads/master' => array(
+    '/var/www/dev.website.org/pull_master.sh'
   ),
 );
 
