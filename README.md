@@ -2,14 +2,15 @@
 A solution to take the post commit hook from github.com and schedule, then pull that repository into your public facing website, most noteably without compromising security by giving ownership of your web files to the apache user, but scheduling cron jobs to be run by a privilaged user instead.
 
 ## Installation
-1. Save the contents of this project one level above web root in _bin/post_commit_.
-1. Navigate to your webroot and create a symlink to _schedule.php_: something like this:
+1. First create a script on your server that will do a git pull against your origin repo; this will be used by Post Commit.  For an example take a look at `git_pull_example.sh`.  Test the script and make sure it is working correctly.
+1. Create a folder one level above web root called `bin` and save this package therein `bin/post_commit` (or wherever appropriate ABOVE web root).
+1. Navigate to your webroot and create a symlink to `bin/post_commit/scheduler.php`: something like this:
 
         ln -s ../bin/post_commit/scheduler.php .
 
-1. Make adjustements to _config.php_.
-1. Set up a cron job to execute _runner.php_ (see below).
-1. Create a dir called _bin/post_commit/logs_.
+1. Copy `post_commit/config.default.php` to `post_commit/config.php`
+1. Make adjustements to `config.php`.
+1. Create a dir called `bin/post_commit/logs`.
 1. Create each of these files:
 
         touch complete.txt orders.txt pending.txt
@@ -22,7 +23,8 @@ A solution to take the post commit hook from github.com and schedule, then pull 
         -rw-rw---- 1 aklump apache    0 May 28 17:16 orders.txt
         -rw-rw---- 1 aklump apache    0 May 28 17:16 pending.txt      
 
-1. Compile the post commit hook url and add it to your github project.  Make sure to use https.
+1. Set up a cron job to execute `runner.php` (see below).
+1. Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.
 
         https://user:password@website.com/scheduler.php?key=yourprivatekeyhere
 

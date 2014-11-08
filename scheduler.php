@@ -27,27 +27,24 @@ if ($access) {
     $json->ref = $_GET['ref'];
   }
 
+  $config = new Config($conf);
+  $config
+    ->setName($json->repository->name)
+    ->setRef($json->ref);
+
   $log->append('Gitlab user: ' . $json->user_name . ' (' . $json->user_id . ')');
   $log->append('ref: ' . $json->ref);
-
-  // Legacy support from version 0.2
-  if (isset($conf['job_cmd'])) {
-    $conf['jobs']['*'][] = $conf['job_cmd'];
-  }
+  $log->append('name: ' . $json->repository->name);
 
   $total_added = 0;
   if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
     $log->append('Invalid log configuration.');
   }
-  elseif (!empty($conf['jobs']) && $jobs) {
-    foreach ($conf['jobs'] as $group => $commands) {
-      if ($group === '*' || $group === $json->ref) {
-        foreach ($commands as $cmd) {
-          fwrite($jobs, $cmd . PHP_EOL);
-          $log->header();
-          ++$total_added;
-        }
-      }
+  elseif ($jobs && ($commands = $config->getJobs())) {
+    foreach ($commands  as $cmd) {
+      fwrite($jobs, $cmd . PHP_EOL);
+      $log->header();
+      ++$total_added;
     }
   }
   fclose($jobs);
