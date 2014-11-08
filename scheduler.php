@@ -27,6 +27,9 @@ if ($access) {
   if (isset($_GET['ref'])) {
     $json->ref = $_GET['ref'];
   }
+  if (isset($_GET['repo'])) {
+    $json->repository->name = $_GET['repo'];
+  }
 
   $config = new Config($conf);
   $config

@@ -38,10 +38,15 @@ This should be pinged by a post commit hook on the origin repo via https and inc
 1. Place the url you've created in a browser and look for output.
 2. If the screen is white, look in your server error logs.
 
+You can test a single repository by appending the following to the url, for the purposes of testing.
+
+    &repo=jquery.slim_time
+
 You can trigger a single branch response by appending the following to the url, for the purposes of testing.
 
-    ?ref=refs/heads/master
+    &ref=refs/heads/master
     
+
 ## runner.php
 
 This should be the target of a frequent cron job being run by the same user that is owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.
