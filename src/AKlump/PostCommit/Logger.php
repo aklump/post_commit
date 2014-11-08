@@ -40,7 +40,7 @@ class Logger {
   }
 
   public function header() {
-    $this->append(trim(shell_exec('whoami')));
+    $this->append('PHP user: ' . trim(shell_exec('whoami')));
     if (($ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '')) {
       $this->append($ip);
     }
