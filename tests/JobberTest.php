@@ -9,14 +9,18 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 class JobberTest extends \PHPUnit_Framework_TestCase {
 
-  public function testFlushJobs() {
-    $temp = dirname(__FILE__) . '/testlogs/flush_test.txt';
-    file_put_contents($temp, '/do/this/thing.sh');
+  public function testGetJob() {
+    $temp = dirname(__FILE__) . '/testlogs/get_test.txt';
     $obj = new Jobber($temp);
-    $this->assertTrue($obj->hasJobs());
-    $obj->flushJobs();
-    $this->assertFalse($obj->hasJobs());
-    $this->assertTrue(file_exists($temp));
+    file_put_contents($temp, "do\nre\nmi");
+    $this->assertSame(array('do', 're', 'mi'), $obj->getJobs());
+    $this->assertSame('do', $obj->takeNextJob());
+    $this->assertSame(array('re', 'mi'), $obj->getJobs());
+    $this->assertSame('re', $obj->takeNextJob());
+    $this->assertSame(array('mi'), $obj->getJobs());
+    $this->assertSame('mi', $obj->takeNextJob());
+    $this->assertSame(array(), $obj->getJobs());
+    $this->assertNull($obj->takeNextJob());
   }
 
   public function testGetJobs() {
