@@ -1,5 +1,5 @@
 name = "Post Commit"
 description = "A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security."
-version = "0.4.10"
+version = "0.4.11"
 author = Aaron Klump <sourcecode@intheloftstudios.com>
 homepage = http://www.intheloftstudios.com/packages/bash/post_commit
