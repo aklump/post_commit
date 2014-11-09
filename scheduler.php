@@ -1,10 +1,9 @@
 <?php
 /**
  * @file
- * Ping handler for gitlab.com post-commit hook to schedule a develop pull job.
+ * Ping handler for post-commit hook to schedule a develop pull job.
  */
-use \AKlump\PostCommit\Logger;
-use \AKlump\PostCommit\Config;
+namespace AKlump\PostCommit;
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 // Make a note that we got hit.
@@ -16,29 +15,37 @@ $access = !empty($_GET['key']) && $_GET['key'] === $conf['secret'];
 // If access then we'll schedule the job.
 if ($access) {
 
-  $json = file_get_contents("php://input");
+  $contents = file_get_contents("php://input");
   
   // Dump this for troubleshooting purposes.
-  file_put_contents($conf['logs_dir'] . '/last.json', $json);
+  file_put_contents($conf['logs_dir'] . '/last.json', $contents);
 
-  $json = json_decode($json);
+  $translators = array('Github', 'Gitlab');
+  foreach ($translators as $translator) {
+    $data = new $translator;
+    if ($data->setContent($contents)->isUnderstood()) {
+      break;
+    }
+  }
 
   // Allow testing in the url via ?ref=refs/heads/master.
-  if (isset($_GET['ref'])) {
-    $json->ref = $_GET['ref'];
+  if (isset($_GET['branch'])) {
+    $data->setBranch($_GET['branch']);
+  }
+  elseif (isset($_GET['ref'])) {
+    $data->setBranch($_GET['ref']);
   }
   if (isset($_GET['repo'])) {
-    $json->repository->name = $_GET['repo'];
+    $data->setRepoName($_GET['repo']);
   }
 
   $config = new Config($conf);
   $config
-    ->setName($json->repository->name)
-    ->setRef($json->ref);
+    ->setName($data->getRepoName());
 
-  $log->append('Gitlab user: ' . $json->user_name . ' (' . $json->user_id . ')');
-  $log->append('repo: ' . $json->repository->name);
-  $log->append('ref: ' . $json->ref);
+  $log->append('origin user: ' . $data->getUsername());
+  $log->append('repo: ' . $data->getRepoName());
+  $log->append('branch: ' . $data->getBranch());
 
   $total_added = 0;
   if (!($jobs = $conf['jobber']->getJobsFileHandle('a'))) {
