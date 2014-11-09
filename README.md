@@ -44,7 +44,7 @@ You can test a single repository by appending the following to the url, for the 
 
 You can trigger a single branch response by appending the following to the url, for the purposes of testing.
 
-    &ref=refs/heads/master
+    &branch=master
     
 
 ## runner.php
