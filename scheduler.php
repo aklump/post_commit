@@ -20,10 +20,11 @@ if ($access) {
   // Dump this for troubleshooting purposes.
   file_put_contents($conf['logs_dir'] . '/last.json', $contents);
 
-  $translators = array('Github', 'Gitlab');
-  foreach ($translators as $translator) {
-    $data = new $translator;
-    if ($data->setContent($contents)->isUnderstood()) {
+  $translators = array();
+  $translators[] = new Github($contents);
+  $translators[] = new Gitlab($contents);
+  foreach ($translators as $data) {
+    if ($data->isUnderstood()) {
       break;
     }
   }
