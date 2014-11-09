@@ -42,6 +42,7 @@ if ($access) {
 
   $config = new Config($conf);
   $config
+    ->setBranch($data->getBranch());
     ->setName($data->getRepoName());
 
   $log->append('origin user: ' . $data->getUsername());
