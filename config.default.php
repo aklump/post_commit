@@ -33,23 +33,22 @@ $conf['jobs']['*'] = array(
   // For any branch commit.
   '*' => array(),
 
-  // One or more commands to execute if the commit was made to master.
-  'refs/heads/master' => array(
+  // Jobs to schedule when the master is pushed to; remember not all providers
+  // specify this information so you might just want to use '*' unless you're
+  // certain of what you're doing.
+  'master' => array(
     '/var/www/dev.website.org/pull_master.sh'
   ),
 
   // One or more commands ... to develop.
-  'refs/heads/develop' => array(
+  'develop' => array(
     '/var/www/dev.website.org/pull_develop.sh'
   ),
 );
 
-// To target only a single repo by name replace '*' with remo name:
-$conf['jobs']['jquery.slim_time'] = array(
-  
-  // Jobs to schedule when the master is pushed to; remember not all providers
-  // specify this information so you might just want to use '*' unless you're
-  // certain of what you're doing.
+// To target only a single repo by name replace '*' with repo name, e.g.,
+// aklump/jquery.slim_time in this case.
+$conf['jobs']['aklump/jquery.slim_time'] = array(
   'master' => array(
     '/var/www/dev.website.org/pull_master.sh'
   ),

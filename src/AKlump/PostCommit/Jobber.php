@@ -58,7 +58,38 @@ class Jobber {
     return $this->data['jobs_file'];
   }
 
+  /**
+   * Determines if there are any pending jobs.
+   *
+   * @return boolean
+   */
   public function hasJobs() {
-    return @filesize($this->getJobsFile()) > 0;
+    return count($this->getJobs()) > 0;
+  }
+
+  /**
+   * Returns an array of jobs
+   *
+   * @return array
+   */
+  public function getJobs() {
+    $jobs = array();
+    $jobs = explode(PHP_EOL, file_get_contents($this->getJobsFile()));
+    $jobs = array_filter(array_unique($jobs));
+
+    return $jobs;
+  }
+
+  /**
+   * Truncates the pending jobs file.
+   *
+   * @return $this
+   */
+  public function flushJobs() {
+    $fh = fopen($this->getJobsFile(), 'w');
+    ftruncate($fh, 0);
+    fclose($fh);
+
+    return $this;
   }
 }
