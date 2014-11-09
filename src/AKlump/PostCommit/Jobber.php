@@ -36,6 +36,12 @@ class Jobber {
     return FALSE;
   }
 
+  public function closeJobsFileHandle() {
+    flock($this->fh, LOCK_UN);
+    fclose($this->fh);
+    unset($this->fh);
+  }
+
   /**
    * Set the jobs_file.
    *
@@ -51,6 +57,9 @@ class Jobber {
   
   /**
    * Return the jobs_file.
+   *
+   * DO NOT USE THIS TO OPEN A FILE, YOU MUST USE getJobsFileHandle() as this
+   * insures a lock on the file.
    *
    * @return string
    */
@@ -68,7 +77,7 @@ class Jobber {
   }
 
   /**
-   * Returns an array of jobs
+   * Returns an array of jobs, you should probabably use takeNextJob().
    *
    * @return array
    */
@@ -81,15 +90,21 @@ class Jobber {
   }
 
   /**
-   * Truncates the pending jobs file.
+   * Returns the next job from the pending queue and rewrites that file.
    *
-   * @return $this
+   * @return string
    */
-  public function flushJobs() {
-    $fh = fopen($this->getJobsFile(), 'w');
+  public function takeNextJob() {
+    $length = filesize($this->getJobsFile());
+    $fh = $this->getJobsFileHandle('r+');
+    $jobs = explode(PHP_EOL, fread($fh, $length));
+    $jobs = array_filter(array_unique($jobs));
+    $next = array_shift($jobs);
     ftruncate($fh, 0);
-    fclose($fh);
+    rewind($fh);
+    fwrite($fh, implode(PHP_EOL, $jobs));
+    $this->closeJobsFileHandle();
 
-    return $this;
+    return $next;
   }
 }

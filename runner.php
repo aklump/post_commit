@@ -8,7 +8,7 @@
 use \AKlump\PostCommit\Logger;
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
-if (!($jobs = $conf['jobber']->getJobs())) {
+if (!($jobs = $conf['jobber']->hasJobs())) {
   die('No jobs pending.' . PHP_EOL);
 }
 elseif (!($fh = $conf['jobber']->getJobsFileHandle('r+'))) {
@@ -17,7 +17,7 @@ elseif (!($fh = $conf['jobber']->getJobsFileHandle('r+'))) {
 
 $log = new Logger($conf['logs_dir'] . '/complete.txt');
 
-foreach ($jobs as $cmd) {
+while ($cmd = $conf['jobber']->takeNextJob()) {
   $log->append(str_repeat('=', 80));
   $now = new \DateTime('now', new \DateTimeZone($conf['timezone_name']));
   $log->append($now->format('r'));
@@ -33,9 +33,5 @@ foreach ($jobs as $cmd) {
 
   $log->close();
 }
-
-// Close and flush the pending file.
-fclose($fh);
-$conf['jobber']->flushJobs();
 
 exit;
