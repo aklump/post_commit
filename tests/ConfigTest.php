@@ -14,7 +14,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $conf['job_cmd'] = 'alpha';
     $conf['jobs']['*']['refs/heads/master'] = array('do');
     $obj = new Config($conf);
-    $obj->setRef('refs/heads/master');
+    $obj->setBranch('refs/heads/master');
 
     $this->assertSame(array('alpha', 'do'), $obj->getJobs());
   }
@@ -25,10 +25,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $conf['jobs']['*']['refs/heads/master'][] = 'mi';
     $obj = new Config($conf);
     
-    $obj->setName('jquery.slim_time')->setRef('refs/heads/develop');
+    $obj->setName('jquery.slim_time')->setBranch('refs/heads/develop');
     $this->assertCount(0, $obj->getJobs());
     $control = array('re', 'mi');
-    $obj->setRef('refs/heads/master');
+    $obj->setBranch('refs/heads/master');
     $this->assertSame($control, $obj->getJobs());
   }
 
@@ -39,7 +39,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $conf['jobs']['jquery.running_clock']['*'] = array('mi');
     $obj = new Config($conf);
     
-    $obj->setName('jquery.slim_time')->setRef('refs/heads/develop');
+    $obj->setName('jquery.slim_time')->setBranch('refs/heads/develop');
     $control = array('do');
     $this->assertSame($control, $obj->getJobs());
   }
