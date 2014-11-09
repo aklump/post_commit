@@ -9,7 +9,7 @@ class Config {
   protected $data = array(
     'vars' => array(),
     'name' => '*',
-    'ref' => '*',
+    'branch' => '*',
   );
 
   public function __construct($vars) {
@@ -35,8 +35,8 @@ class Config {
     }
 
     $these_jobs = isset($jobs['*']) ? $jobs['*'] : array();
-    if ($this->getRef() !== '*' && isset($jobs[$this->getRef()])) {
-      $these_jobs = array_merge($these_jobs, $jobs[$this->getRef()]);
+    if ($this->getBranch() !== '*' && isset($jobs[$this->getBranch()])) {
+      $these_jobs = array_merge($these_jobs, $jobs[$this->getBranch()]);
     }
 
     return $these_jobs;
@@ -65,25 +65,25 @@ class Config {
   }
   
   /**
-   * Set the ref.
+   * Set the branch.
    *
-   * @param string $ref
+   * @param string $branch
    *
    * @return $this
    */
-  public function setRef($ref) {
-    $this->data['ref'] = (string) $ref;
+  public function setBranch($branch) {
+    $this->data['branch'] = (string) $branch;
   
     return $this;
   }
   
   /**
-   * Return the ref.
+   * Return the branch.
    *
    * @return string
    */
-  public function getRef() {
-    return $this->data['ref'];
+  public function getBranch() {
+    return $this->data['branch'];
   }
 
   /**
