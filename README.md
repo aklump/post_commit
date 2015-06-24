@@ -2,7 +2,7 @@
 A solution to take the post commit hook from github.com and schedule, then pull that repository into your public facing website, most noteably without compromising security by giving ownership of your web files to the apache user, but scheduling cron jobs to be run by a privilaged user instead.
 
 ## Installation
-1. First create a script on your server that will do a git pull against your origin repo; this will be used by Post Commit.  For an example take a look at `git_pull_example.sh`.  Test the script and make sure it is working correctly.
+1. First create a script on your server that will do a git pull against your origin repo; this will be used by Post Commit.  For an example take a look at `git_pull_example.sh`.  Test the script and make sure it is working correctly.  It is not possible to use a passphrase on your deploy key at this time.
 1. Create a folder one level above web root called `bin` and save this package therein `bin/post_commit` (or wherever appropriate ABOVE web root).
 1. Navigate to your webroot and create a symlink to `bin/post_commit/scheduler.php`: something like this:
 
@@ -11,7 +11,7 @@ A solution to take the post commit hook from github.com and schedule, then pull 
 1. Copy `post_commit/config.default.php` to `post_commit/config.php`
 1. Make adjustements to `config.php`.
 1. Create a dir called `bin/post_commit/logs`.
-1. Create each of these files:
+1. Create each of these files inside of `bin/post_commit/logs`:
 
         touch complete.txt orders.txt pending.txt cron.txt
 
