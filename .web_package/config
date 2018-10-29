@@ -1,4 +1,3 @@
-template = false
 master = "master"
 develop = "develop"
 remote = origin
@@ -7,3 +6,5 @@ push_tags = auto
 push_master = auto
 push_develop = auto
 patch_prefix = .
+git_root = .
+info_file = post_commit.core.yml

@@ -1,3 +1,0 @@
-/home/loftuber/intheloftstudios/bin/pull_master_slim_time.sh
-/home/loftuber/intheloftstudios/bin/pull_master_verify_age.sh
-/home/loftuber/intheloftstudios/bin/pull_master_verify_age.sh
