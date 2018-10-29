@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Post Commit</title>
+  <link href="search/tipuesearch.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="page--readme">
+<header>
+  <div class="pager">
+  <a href="index.html" class="prev index">&laquo;Index</a>
+  <a href="index.html" class="index">Index</a>
+  <a href="overview.html" class="next overview">Post Commit&raquo;</a>
+</div>
+</header>
+
+  <div class="search__wrapper">
+  <form action="search--results.html">
+    <input type="text" class="search-input" name="q" id="tipue_search_input" autocomplete="off" required>
+  </form>
+</div>
+
+  <h1>Post Commit</h1>
+  <div class="breadcrumb"><a href="index.html">Index</a></div>
+
+<section>
+
+<p><img src="images/screenshot.jpg" alt="post_commit" /></p>
+
+<h2>Summary</h2>
+
+<p><strong>Visit <a href="https://aklump.github.io/post_commit">https://aklump.github.io/post_commit</a> for full documentation.</strong></p>
+
+<h2>Quick Start</h2>
+
+<ul>
+<li>Install in your repository root using <code>cloudy pm-install aklump/post_commit</code></li>
+<li>Open <em>bin/config/post_commit.yml</em> and modify as needed.</li>
+<li>Open <em>bin/config/post_commit.local.yml</em> and ...</li>
+</ul>
+
+<h2>Requirements</h2>
+
+<p>You must have <a href="https://github.com/aklump/cloudy">Cloudy</a> installed on your system to install this package.</p>
+
+<h2>Installation</h2>
+
+<p>The installation script above will generate the following structure where <code>.</code> is your repository root.</p>
+
+<pre><code>.
+├── bin
+│   ├── post_commit -&gt; ../opt/post_commit/post_commit.sh
+│   └── config
+│       ├── post_commit.yml
+│       └── post_commit.local.yml
+├── opt
+│   ├── cloudy
+│   └── aklump
+│       └── post_commit
+└── {public web root}
+</code></pre>
+
+<h3>To Update</h3>
+
+<ul>
+<li>Update to the latest version from your repo root: <code>cloudy pm-update aklump/post_commit</code></li>
+</ul>
+
+<h2>Configuration Files</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Filename</th>
+  <th>Description</th>
+  <th>VCS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><em>post_commit.yml</em></td>
+  <td>Configuration shared across all server environments: prod, staging, dev</td>
+  <td>yes</td>
+</tr>
+<tr>
+  <td><em>post_commit.local.yml</em></td>
+  <td>Configuration overrides for a single environment; not version controlled.</td>
+  <td>no</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Custom Configuration</h3>
+
+<ul>
+<li>lorem</li>
+<li>ipsum</li>
+</ul>
+
+<h2>Usage</h2>
+
+<ul>
+<li>To see all commands use <code>./bin/post_commit help</code></li>
+</ul>
+
+<h2>Contributing</h2>
+
+<p>If you find this project useful... please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4E5KZHDQCEUV8&amp;item_name=Gratitude%20for%20aklump%2Fpost_commit">making a donation</a>.</p>
+</section>
+
+<div class="search__results">
+  <div id="tipue_search_content"></div>
+</div>
+
+<footer>
+  <div class="pager">
+  <a href="index.html" class="prev index">&laquo;Index</a>
+  <a href="index.html" class="index">Index</a>
+  <a href="overview.html" class="next overview">Post Commit&raquo;</a>
+</div>
+  
+  <div id="footer-legaleeze">
+    <p class="legaleeze center">Version: 0.4.15 &bull; Last Updated: Mon, 29 Oct 2018 11:46:14 -0700</p>
+  </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="search/tipuesearch_content.js"></script>
+  <script src="search/tipuesearch_set.js"></script>
+  <script src="search/tipuesearch.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#tipue_search_input').tipuesearch();
+    });
+  </script>
+<script src="js/core.js"></script>
+</body>
+</html>
+
