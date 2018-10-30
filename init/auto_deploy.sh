@@ -3,6 +3,9 @@
 # @file
 # An example script to use in post commit.
 
+# This is the location on the server for drush.  Not sure why, but we have to specify it as an absolute path.
+drush=/usr/local/bin/drush
+
 source="${BASH_SOURCE[0]}"
 while [ -h "$source" ]; do # resolve $source until the file is no longer a symlink
   dir="$( cd -P "$( dirname "$source" )" && pwd )"
@@ -11,5 +14,5 @@ while [ -h "$source" ]; do # resolve $source until the file is no longer a symli
 done
 root="$( cd -P "$( dirname "$source" )" && pwd )"
 
-# Move into the git repo and do a rebase from origin.
-cd $root && git pull
+(cd $root/.. && git pull)
+(cd $root/../web && $drush cc all)
