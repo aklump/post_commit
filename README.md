@@ -28,9 +28,6 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
         https://{website}/scheduler.php?key={url_private}
 
-1. If you the site is HTTP Authorized, you will need to add credentials to the URL:        
-
-        https://{user}:{password}@{website}/scheduler.php?key={url_private}
 1. Begin monitoring the _pending.txt_ log using `tail -f pending.txt`.
 1. Open the endpoint in your browser, you should see something like:
 
@@ -43,6 +40,9 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
         jobs added: 1
         --------------------------------------------------------------------------------
 1. Assert that the absolute path to the job is appended to _pending.txt_.
+1. Begin monitoring the _complete.txt_ log using `tail -f complete.txt`.
+1. Manually run the jobs with `./bin/post_commit run`.
+1. Assert you see output from your job in _complete.txt_.
 
 ### Part 2 of 4: Register Web Hook
 
@@ -55,13 +55,16 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
         branch: *
         --------------------------------------------------------------------------------
 
+1. If you the site is HTTP Authorized, you will need to add credentials to the URL:        
+
+        https://{user}:{password}@{website}/scheduler.php?key={url_private}
+        
 1. Compile the post commit hook url and add it to your github project.
             
     * Keep the key in the url, do not use the secret textfield.
     * Choose the json format.
     * Make sure to use https if you can, a self-signed cert should work fine.
     * Save the webhook and check _orders.txt_ for a change.
-
 
 ![GitHub Webhook](images/webhook.png)
 

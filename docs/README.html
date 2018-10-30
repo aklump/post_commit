@@ -60,11 +60,7 @@
 
 <pre><code>https://{website}/scheduler.php?key={url_private}
 </code></pre></li>
-<li><p>If you the site is HTTP Authorized, you will need to add credentials to the URL:</p>
-
-<pre><code>https://{user}:{password}@{website}/scheduler.php?key={url_private}
-</code></pre></li>
-<li>Begin monitoring the <em>pending.txt</em> log using <code>tail -f pending.txt</code>.</li>
+<li><p>Begin monitoring the <em>pending.txt</em> log using <code>tail -f pending.txt</code>.</p></li>
 <li><p>Open the endpoint in your browser, you should see something like:</p>
 
 <pre><code>origin user:
@@ -77,6 +73,9 @@ jobs added: 1
 --------------------------------------------------------------------------------
 </code></pre></li>
 <li>Assert that the absolute path to the job is appended to <em>pending.txt</em>.</li>
+<li>Begin monitoring the <em>complete.txt</em> log using <code>tail -f complete.txt</code>.</li>
+<li>Manually run the jobs with <code>./bin/post_commit run</code>.</li>
+<li>Assert you see output from your job in <em>complete.txt</em>.</li>
 </ol>
 
 <h3>Part 2 of 4: Register Web Hook</h3>
@@ -90,6 +89,10 @@ origin user: aklump
 repo: aklump/post_commit
 branch: *
 --------------------------------------------------------------------------------
+</code></pre></li>
+<li><p>If you the site is HTTP Authorized, you will need to add credentials to the URL:</p>
+
+<pre><code>https://{user}:{password}@{website}/scheduler.php?key={url_private}
 </code></pre></li>
 <li><p>Compile the post commit hook url and add it to your github project.</p>
 
@@ -264,7 +267,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 11:30:54 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 11:34:51 -0700</p>
   </div>
 </footer>
 
