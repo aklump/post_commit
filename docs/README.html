@@ -51,6 +51,32 @@
   <p>Pro Tip: Run <code>./bin/post_commit config-check</code> at any time to reveal configuration problems.</p>
 </blockquote>
 
+<h3>GitHub: Register Web Hook</h3>
+
+<ol>
+<li>Log in to your server and <code>cd</code> to the logs directory.</li>
+<li><p>Begin a log monitor like so<code>tail -f orders.txt</code>.  When you save your webhook, you should see content appended to this, something like, which indicates things are working correctly.</p>
+
+<pre><code>origin user: aklump
+repo: aklump/post_commit
+branch: *
+--------------------------------------------------------------------------------
+</code></pre></li>
+<li><p>Compile the post commit hook url and add it to your github project.</p>
+
+<pre><code>    https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
+</code></pre>
+
+<ul>
+<li>Keep the key in the url, do not use the secret textfield.</li>
+<li>Choose the json format.</li>
+<li>Make sure to use https if you can, a self-signed cert should work fine.</li>
+<li>Save the webhook and check <em>orders.txt</em> for a change.</li>
+</ul></li>
+</ol>
+
+<p><img src="images/webhook.png" alt="GitHub Webhook" /></p>
+
 <h3>Setup cron job</h3>
 
 <ol>
@@ -66,17 +92,6 @@
 
 <pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt; /dev/null
 </code></pre>
-
-<h3>GitHub: Register Web Hook</h3>
-
-<ol>
-<li><p>Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.</p>
-
-<pre><code>https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
-</code></pre></li>
-</ol>
-
-<p><img src="images/webhook.png" alt="GitHub Webhook" /></p>
 
 <h2>Requirements</h2>
 
@@ -209,7 +224,7 @@
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 09:10:14 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:05:28 -0700</p>
   </div>
 </footer>
 

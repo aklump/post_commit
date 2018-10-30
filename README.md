@@ -20,6 +20,28 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 > Pro Tip: Run `./bin/post_commit config-check` at any time to reveal configuration problems.
 
+### GitHub: Register Web Hook
+
+1. Log in to your server and `cd` to the logs directory.
+1. Begin a log monitor like so`tail -f orders.txt`.  When you save your webhook, you should see content appended to this, something like, which indicates things are working correctly.
+
+        origin user: aklump
+        repo: aklump/post_commit
+        branch: *
+        --------------------------------------------------------------------------------
+
+1. Compile the post commit hook url and add it to your github project.
+
+            https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
+            
+    * Keep the key in the url, do not use the secret textfield.
+    * Choose the json format.
+    * Make sure to use https if you can, a self-signed cert should work fine.
+    * Save the webhook and check _orders.txt_ for a change.
+
+
+![GitHub Webhook](images/webhook.png)
+
 ### Setup cron job
 
 1. Set up a cron job to execute `runner.php`.
@@ -32,15 +54,7 @@ This should be the target of a frequent cron job being run by the same user that
 Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete `logs/cron.txt` at this point.
 
     * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php > /dev/null
-
-### GitHub: Register Web Hook
-
-1. Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.
-
-        https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
-
-![GitHub Webhook](images/webhook.png)
-        
+            
 ## Requirements
 
 * You must have [Cloudy](https://github.com/aklump/cloudy) installed on your system to install this package.
