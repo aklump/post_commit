@@ -31,7 +31,7 @@
 
 <h2>Summary</h2>
 
-<p>Provides an endpoint to your website to use as a webhook for git post commit hooks.  When triggered the endpoint will queue a <code>git pull</code> to be executed by cron.  This allows you to automate a deployment (plus whatever you want, e.g. Drupal cache clear), whenever you push to your repository.  By leveraging cron, you can keep tight permissions and run your git pull as the cron user, not, say, <code>apache</code>.  Intended to be used for staging websites, rather than production, where you would want to deploy manually.</p>
+<p>Provides an endpoint to your website to use as a webhook for git post commit hooks.  When triggered the endpoint will queue a <code>git pull</code> to be executed by cron.  This allows you to automate a deployment (plus whatever you want, e.g. Drupal cache clear), whenever you push to your repository.  By leveraging cron, you can keep tight permissions and run your git pull as the cron user, not, say, <code>apache</code>.  Intended to be used for staging websites, rather than production where you would want to deploy manually.</p>
 
 <p><strong>Visit <a href="https://aklump.github.io/post_commit">https://aklump.github.io/post_commit</a> for full documentation.</strong></p>
 
@@ -79,7 +79,7 @@ jobs added: 1
 <li>If you wish to test your endpoint response to a certain repo or branch, use <code>?&amp;repo={repo}&amp;branch={master}</code>.</li>
 </ol>
 
-<h3>Part 2 of 4: Register Web Hook</h3>
+<h3>Part 3 of 4: Register Web Hook</h3>
 
 <ol>
 <li>Log in to your server and <code>cd</code> to the logs directory.</li>
@@ -124,6 +124,8 @@ branch: *
 <li><p>Lastly, run <code>./bin/post_commit empty-logs</code> to flush all logs.</p></li>
 <li>You're done.</li>
 </ol>
+
+<hr />
 
 <h2>About the Log Files</h2>
 
@@ -225,10 +227,6 @@ branch: *
 <li>To see all commands use <code>./bin/post_commit help</code></li>
 </ul>
 
-<h2>Contributing</h2>
-
-<p>If you find this project useful... please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4E5KZHDQCEUV8&amp;item_name=Gratitude%20for%20aklump%2Fpost_commit">making a donation</a>.</p>
-
 <h2>Troubleshooting</h2>
 
 <h3>Jobs get scheduled but not run?</h3>
@@ -239,6 +237,10 @@ branch: *
 <li><p>Try logging in to the server as the cron user and running the command.</p></li>
 <li><p>Make sure you can git pull manually using your ssh keys, etc.</p></li>
 </ol>
+
+<h2>Contributing</h2>
+
+<p>If you find this project useful... please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4E5KZHDQCEUV8&amp;item_name=Gratitude%20for%20aklump%2Fpost_commit">making a donation</a>.</p>
 </section>
 
 <div class="search__results">
@@ -253,7 +255,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.11 &bull; Last Updated: Tue, 30 Oct 2018 12:26:08 -0700</p>
+    <p class="legaleeze center">Version: 1.0.12 &bull; Last Updated: Tue, 30 Oct 2018 12:31:17 -0700</p>
   </div>
 </footer>
 
