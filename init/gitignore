@@ -1,5 +1,5 @@
-/aklump/__cloudy/init/
-/aklump/__cloudy/docs/
-/aklump/__cloudy/documentation/
-/aklump/__cloudy/.web_package/
-/aklump/__cloudy/images/
+/aklump/post_commit/init/
+/aklump/post_commit/docs/
+/aklump/post_commit/documentation/
+/aklump/post_commit/.web_package/
+/aklump/post_commit/images/
