@@ -43,6 +43,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 1. Begin monitoring the _complete.txt_ log using `tail -f complete.txt`.
 1. Manually run the jobs with `./bin/post_commit run`.
 1. Assert you see output from your job in _complete.txt_.
+1. If you wish to test your endpoint response to a certain repo or branch, use `?&repo={repo}&branch={master}`. 
 
 ### Part 2 of 4: Register Web Hook
 
@@ -134,19 +135,6 @@ The installation script above will generate the following structure where `.` is
 ## Contributing
 
 If you find this project useful... please consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4E5KZHDQCEUV8&item_name=Gratitude%20for%20aklump%2Fpost_commit).
-
-### Testing
-
-1. Place the url you've created in a browser and look for output.
-2. If the screen is white, look in your server error logs.
-
-You can test a single repository by appending the following to the url, for the purposes of testing.
-
-    &repo=jquery.slim_time
-
-You can trigger a single branch response by appending the following to the url, for the purposes of testing.
-
-    &branch=master
 
 ## Troubleshooting
 
