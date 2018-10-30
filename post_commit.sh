@@ -46,7 +46,7 @@ case $command in
         eval $(get_config_path "web_root")
         exit_with_failure_if_config_is_not_path "web_root"
         if [ ! -L "$web_root/scheduler.php" ]; then
-            (cd "$web_root" && ln -s $(path_relative_to_root "scheduler.php") .) && succeed_because "Symlink created for scheduler.php" || fail_because "Could not create symlink to scheduler.php"
+            (cd "$web_root" && ln -s ../opt/aklump/post_commit/scheduler.php .) && succeed_because "Symlink created for scheduler.php" || fail_because "Could not create symlink to scheduler.php"
         fi
 
         has_failed && exit_with_failure
