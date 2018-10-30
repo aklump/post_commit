@@ -76,5 +76,5 @@ else {
 
 $log->close();
 
-header("Content Type: text/html");
+header("Content-Type: text/html");
 print '<p>' . $log->view("</p>\n</p>") . '</p>' . PHP_EOL;
