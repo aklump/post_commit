@@ -29,6 +29,29 @@ implement_cloudy_basic
 command=$(get_command)
 case $command in
 
+    "config-check")
+
+        # URL secret.
+        eval $(get_config "url_secret")
+        exit_with_failure_if_empty_config "url_secret"
+        [ $url_secret == null ] && fail_because "url_secret cannot be null"
+        [ ${#url_secret} -lt 8 ] && fail_because "url_secret should be longer than 8 chars"
+
+        # Web root & symlink.
+        eval $(get_config_path "web_root")
+        exit_with_failure_if_config_is_not_path "web_root"
+        [ -L "$web_root/scheduler.php" ] || fail_because "Missing symlink $web_root/scheduler.php"
+
+        # Check logs dir.
+        eval $(get_config_path "logs_dir")
+        exit_with_failure_if_config_is_not_path "logs_dir"
+        touch "$logs_dir/config-check.txt" || fail_because "Logs directory is not writable"
+        has_failed || rm "$logs_dir/config-check.txt"
+
+        has_failed && exit_with_failure "Configuration problems detected."
+        exit_with_success "Config OK."
+        ;;
+
     "empty-logs")
         php "$ROOT/reset.php" || exit_with_failure "Could not empty logs."
         exit_with_success "Logs are empty."

@@ -5,6 +5,9 @@ additional_config:
   - ../../../bin/config/post_commit.local.yml
 default_command: help
 commands:
+  config-check:
+    help: Diagnose any configuration problems
+    aliases: [configcheck]
   empty-logs:
     help: 'Safely empty all log files without affecting permissions'
     aliases: [logs]
