@@ -1,0 +1,28 @@
+{
+    "name": "aklump/post_commit",
+    "type": "library",
+    "description": "A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.",
+    "keywords": [
+        "post commit hooks",
+        "git",
+        "auto-deploy"
+    ],
+    "homepage": "http://github.com/aklump/post_commit",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Aaron Klump",
+            "email": "sourcecode@intheloftstudios.com",
+            "homepage": "http://www.intheloftstudios.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "AKlump\\": "src/"
+        }
+    }
+}

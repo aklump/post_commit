@@ -13,7 +13,7 @@ CONFIG="post_commit.core.yml";
 
 # TODO: Event handlers and other functions go here or source another file.
 function on_pre_config() {
-    [[ "$(get_command)" == "init" ]] && exit_with_init
+    [[ "$(get_command)" == "init" ]] && handle_init
 }
 
 # Begin Cloudy Bootstrap
@@ -29,13 +29,36 @@ implement_cloudy_basic
 command=$(get_command)
 case $command in
 
-    "command")
+    "init")
+        CLOUDY_FAILED="Init failed; correct errors and run again."
 
-    # TODO: Write the code to handle this command here.
+        # Populate logs dir with files.
+        eval $(get_config_path "logs_dir")
+        exit_with_failure_if_config_is_not_path "logs_dir"
+        (cd "$logs_dir" && touch complete.txt orders.txt pending.txt cron.txt) && succeed_because "Log files established." || fail_because "Could not create log files."
 
-    has_failed && exit_with_failure
-    exit_with_success
-    ;;
+        # Schedule.php symlink.
+        eval $(get_config_path "web_root")
+        exit_with_failure_if_config_is_not_path "web_root"
+        if [ ! -L "$web_root/scheduler.php" ]; then
+            (cd "$web_root" && ln -s $(path_relative_to_root "scheduler.php") .) && succeed_because "Symlink created for scheduler.php" || fail_because "Could not create symlink to scheduler.php"
+        fi
+
+        has_failed && exit_with_failure
+        exit_with_success "Initialization successfully completed."
+        ;;
+
+    "get_config")
+        eval $(get_config_path_as abs_logs_dir "logs_dir")
+        exit_with_failure_if_config_is_not_path "abs_logs_dir"
+
+        # Replace the logs_dir with the absolute path.
+        eval $(get_config "logs_dir")
+        json=$CLOUDY_CONFIG_JSON
+        json=${json/\"logs_dir\":\"$logs_dir\"/\"logs_dir\":\"$abs_logs_dir\"}
+
+        echo $json && exit 0;
+        ;;
 
 esac
 

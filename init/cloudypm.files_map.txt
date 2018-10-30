@@ -1,1 +1,2 @@
 * ../../../bin/config/*
+auto_deploy.sh.sh ../../../bin/auto_deploy.sh

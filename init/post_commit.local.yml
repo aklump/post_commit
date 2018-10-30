@@ -1,0 +1,2 @@
+# This is the secret key that must be passed to scheduler.php as ?key=
+url_secret: add_some_secret_here_for_the_url

@@ -5,6 +5,8 @@ additional_config:
   - ../../../bin/config/post_commit.local.yml
 default_command: help
 commands:
+  get_config:
+    help: Echo the configuration as JSON.
   init:
     help: Initialize local configuration files.
   help:
