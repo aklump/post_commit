@@ -20,9 +20,9 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 1. Set up a cron job to execute `runner.php` (see below).
 1. Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.
 
-        https://user:password@website.com/scheduler.php?key=yourprivatekeyhere
+        https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
 
-1. Now make a commit to your repo and the website should update itself.
+![GitHub Webhook](images/webhook.png)
         
 ## Requirements
 

@@ -48,10 +48,11 @@
 <li>Set up a cron job to execute <code>runner.php</code> (see below).</li>
 <li><p>Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.</p>
 
-<pre><code>https://user:password@website.com/scheduler.php?key=yourprivatekeyhere
+<pre><code>https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
 </code></pre></li>
-<li><p>Now make a commit to your repo and the website should update itself.</p></li>
 </ol>
+
+<p><img src="images/webhook.png" alt="GitHub Webhook" /></p>
 
 <h2>Requirements</h2>
 
@@ -196,7 +197,7 @@
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.4 &bull; Last Updated: Mon, 29 Oct 2018 20:30:49 -0700</p>
+    <p class="legaleeze center">Version: 1.0.4 &bull; Last Updated: Mon, 29 Oct 2018 20:48:54 -0700</p>
   </div>
 </footer>
 
