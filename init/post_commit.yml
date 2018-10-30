@@ -8,12 +8,12 @@ jobs:
         scripts:
       - branch_name: master
         scripts:
-          - /var/www/dev.website.org/pull_master.sh
+          - bin/auto_deploy.sh
       - branch_name: develop
         scripts:
-          - /var/www/dev.website.org/pull_develop.sh
+          - bin/auto_deploy.sh
   - repository_name: aklump/jquery.slim_time
     actions:
       - branch_name: master
         scripts:
-        - /var/www/dev.website.org/pull_master.sh
+        - /absolute/paths/are/fine/too

@@ -51,12 +51,7 @@ case $command in
     "get_config")
         eval $(get_config_path_as abs_logs_dir "logs_dir")
         exit_with_failure_if_config_is_not_path "abs_logs_dir"
-
-        # Replace the logs_dir with the absolute path.
-        eval $(get_config "logs_dir")
         json=$CLOUDY_CONFIG_JSON
-        json=${json/\"logs_dir\":\"$logs_dir\"/\"logs_dir\":\"$abs_logs_dir\"}
-
         echo $json && exit 0;
         ;;
 
