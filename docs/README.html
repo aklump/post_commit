@@ -37,6 +37,8 @@
 
 <h2>Quick Start</h2>
 
+<h3>Part 1 of 3</h3>
+
 <ol>
 <li>Install in your repository root using <code>cloudy pm-install aklump/post_commit</code></li>
 <li>Open <em>bin/config/post_commit.yml</em> and set configuration.</li>
@@ -51,7 +53,7 @@
   <p>Pro Tip: Run <code>./bin/post_commit config-check</code> at any time to reveal configuration problems.</p>
 </blockquote>
 
-<h3>GitHub: Register Web Hook</h3>
+<h3>Part 2 of 3: Register Web Hook</h3>
 
 <ol>
 <li>Log in to your server and <code>cd</code> to the logs directory.</li>
@@ -78,7 +80,7 @@ branch: *
 
 <p><img src="images/webhook.png" alt="GitHub Webhook" /></p>
 
-<h3>Setup cron job</h3>
+<h3>Part 3 of 3: Setup cron job</h3>
 
 <ol>
 <li><p>Set up a cron job to execute <code>./bin/post_commit run</code>.</p>
@@ -93,6 +95,37 @@ branch: *
 
 <pre><code>* * * * * ./bin/post_commit run &gt; /dev/null
 </code></pre>
+
+<h2>About the Log Files</h2>
+
+<p>Rather than deleting log files, truncate them with <code>./bin/post_commit empty-logs</code>.  This will maintain the correct permissions.</p>
+
+<table>
+<thead>
+<tr>
+  <th>basename</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><em>orders.txt</em></td>
+  <td>A running list of incoming pings.</td>
+</tr>
+<tr>
+  <td><em>pending.txt</em></td>
+  <td>Authorized jobs that are waiting to be run.</td>
+</tr>
+<tr>
+  <td><em>complete.txt</em></td>
+  <td>All jobs that have been run.  These have been moved from pending.</td>
+</tr>
+<tr>
+  <td><em>cron.txt</em></td>
+  <td>Output from the cron job that controls the runner.</td>
+</tr>
+</tbody>
+</table>
 
 <h2>Requirements</h2>
 
@@ -180,27 +213,6 @@ branch: *
 <pre><code>&amp;branch=master
 </code></pre>
 
-<h2>orders.txt</h2>
-
-<p><strong>You can truncate all text files without messing up perms using <em>reset.php</em>.</strong></p>
-
-<p>A log of incoming orders post commit hooks.</p>
-
-<h2>complete.txt</h2>
-
-<p>A log of <em>runner.php</em>.</p>
-
-<h2>pending.txt</h2>
-
-<p>The commands that have not yet been executed by cron.  This file should get emptied at each cron run.</p>
-
-<h2>To dump all logs and cancel standing orders</h2>
-
-<p>Don't just delete the log files as permissions are bit tricky; instead use the reset script.</p>
-
-<pre><code>php reset.php
-</code></pre>
-
 <h2>Troubleshooting</h2>
 
 <h3>Jobs get scheduled but not run?</h3>
@@ -225,7 +237,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:18:55 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:47:49 -0700</p>
   </div>
 </footer>
 

@@ -10,6 +10,8 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ## Quick Start
 
+### Part 1 of 3
+
 1. Install in your repository root using `cloudy pm-install aklump/post_commit`
 1. Open _bin/config/post_commit.yml_ and set configuration.
 1. Create the _logs_ directory as configured in the previous step; be sure to **ignore this file** in SCM.
@@ -20,7 +22,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 > Pro Tip: Run `./bin/post_commit config-check` at any time to reveal configuration problems.
 
-### GitHub: Register Web Hook
+### Part 2 of 3: Register Web Hook
 
 1. Log in to your server and `cd` to the logs directory.
 1. Begin monitoring the _orders.txt_ log using `tail -f orders.txt`.  When you save your webhook below, you should see content appended--a new order--which indicates things are working correctly.  It will resemble:
@@ -43,7 +45,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ![GitHub Webhook](images/webhook.png)
 
-### Setup cron job
+### Part 3 of 3: Setup cron job
 
 1. Set up a cron job to execute `./bin/post_commit run`.
 
@@ -55,6 +57,17 @@ Example 2, no log of cron jobs, better once all is working correctly.  When all 
 
     * * * * * ./bin/post_commit run > /dev/null
             
+## About the Log Files
+
+Rather than deleting log files, truncate them with `./bin/post_commit empty-logs`.  This will maintain the correct permissions.
+
+| basename | description |
+|----------|----------|
+| _orders.txt_ | A running list of incoming pings.  |
+| _pending.txt_ | Authorized jobs that are waiting to be run. |
+| _complete.txt_ | All jobs that have been run.  These have been moved from pending. |
+| _cron.txt_ | Output from the cron job that controls the runner. |
+
 ## Requirements
 
 * You must have [Cloudy](https://github.com/aklump/cloudy) installed on your system to install this package.
@@ -98,8 +111,6 @@ The installation script above will generate the following structure where `.` is
 
 If you find this project useful... please consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4E5KZHDQCEUV8&item_name=Gratitude%20for%20aklump%2Fpost_commit).
 
-
-
 ### Testing
 
 1. Place the url you've created in a browser and look for output.
@@ -112,27 +123,6 @@ You can test a single repository by appending the following to the url, for the 
 You can trigger a single branch response by appending the following to the url, for the purposes of testing.
 
     &branch=master
-    
-
-## orders.txt
-
-**You can truncate all text files without messing up perms using _reset.php_.**
-
-A log of incoming orders post commit hooks.
-
-## complete.txt
-
-A log of _runner.php_.
-
-## pending.txt
-
-The commands that have not yet been executed by cron.  This file should get emptied at each cron run.
-
-## To dump all logs and cancel standing orders
-
-Don't just delete the log files as permissions are bit tricky; instead use the reset script.
-
-    php reset.php
 
 ## Troubleshooting
 
