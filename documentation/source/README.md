@@ -71,15 +71,20 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ### Part 3 of 4: Setup cron job
 
-1. Set up a cron job to execute `./bin/post_commit run`.
+1. Set up a cron job to execute `./bin/post_commit run` and log the output.
 
-        * * * * * ./bin/post_commit run >> /path/to/logs/cron.txt
-    
-This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
-    
-Example 2, no log of cron jobs, better once all is working correctly.  When all is well you should run `./bin/post_commit empty-logs` to flush the cron log.
+        * * * * * ./bin/post_commit run >> /path/to/.../logs/cron.txt
 
-    * * * * * ./bin/post_commit run > /dev/null
+1. Begin monitoring _cron.txt_ using `tail -f cron.txt`.  Wait for the next cron run and assert content was appended to _cron.txt_.
+
+1. Now, test the whole setup by committing to your repo and asserting that _auto_pull.sh_ was indeed executed by cron.
+1. Remove wildcards in the configuration `repository_name` and `branch_name` values as necessary.
+1. Disable cron logging in your crontab with:
+
+        * * * * * ./bin/post_commit run > /dev/null
+
+1. Lastly, run `./bin/post_commit empty-logs` to flush all logs.
+1. You're done.
             
 ## About the Log Files
 
