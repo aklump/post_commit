@@ -29,6 +29,11 @@ implement_cloudy_basic
 command=$(get_command)
 case $command in
 
+    "empty-logs")
+        php "$ROOT/reset.php" || exit_with_failure "Could not empty logs."
+        exit_with_success "Logs are empty."
+        ;;
+
     "init")
         CLOUDY_FAILED="Init failed; correct errors and run again."
 
