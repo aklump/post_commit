@@ -6,7 +6,7 @@ additional_config:
 default_command: help
 commands:
   config-check:
-    help: Diagnose any configuration problems
+    help: 'Diagnose any configuration problems'
     aliases: [configcheck]
   empty-logs:
     help: 'Safely empty all log files without affecting permissions'
@@ -28,5 +28,5 @@ translate:
     en: null
 name: 'Post Commit'
 description: 'A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.'
-version: 1.0.5
+version: 1.0.6
 author: 'Aaron Klump <sourcecode@intheloftstudios.com>'
