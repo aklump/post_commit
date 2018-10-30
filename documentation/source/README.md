@@ -10,10 +10,10 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ## Quick Start
 
-### Part 1 of 3
+### Part 1 of 4
 
 1. Install in your repository root using `cloudy pm-install aklump/post_commit`
-1. Open _bin/config/post_commit.yml_ and set configuration.
+1. Open _bin/config/post_commit.yml_ and set configuration.  I encourage you to use wildcards for the repository and branch at first to get things working; you can tighten that up later.
 1. Create the _logs_ directory as configured in the previous step; be sure to **ignore this file** in SCM.
 1. Open _bin/config/post_commit.local.yml_ and modify as needed; be sure to **ignore this file** in SCM.
 1. Modify as needed and add _bin/auto_deploy.sh_ to SCM.
@@ -22,7 +22,29 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 > Pro Tip: Run `./bin/post_commit config-check` at any time to reveal configuration problems.
 
-### Part 2 of 3: Register Web Hook
+### Part 2 of 4: Test Endpoint
+
+1. Determine the URL endpoint of the webhook, e.g., 
+
+        https://{website}/scheduler.php?key={url_private}
+
+1. If you the site is HTTP Authorized, you will need to add credentials to the URL:        
+
+        https://{user}:{password}@{website}/scheduler.php?key={url_private}
+1. Begin monitoring the _pending.txt_ log using `tail -f pending.txt`.
+1. Open the endpoint in your browser, you should see something like:
+
+        origin user:
+        repo:
+        branch: *
+        PHP user: apache
+        127.0.0.1
+        Tue, 30 Oct 2018 11:25:09 -0700
+        jobs added: 1
+        --------------------------------------------------------------------------------
+1. Assert that the absolute path to the job is appended to _pending.txt_.
+
+### Part 2 of 4: Register Web Hook
 
 1. Log in to your server and `cd` to the logs directory.
 1. Begin monitoring the _orders.txt_ log using `tail -f orders.txt`.  When you save your webhook below, you should see content appended--a new order--which indicates things are working correctly.  It will resemble:
@@ -34,8 +56,6 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
         --------------------------------------------------------------------------------
 
 1. Compile the post commit hook url and add it to your github project.
-
-            https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
             
     * Keep the key in the url, do not use the secret textfield.
     * Choose the json format.
@@ -45,7 +65,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ![GitHub Webhook](images/webhook.png)
 
-### Part 3 of 3: Setup cron job
+### Part 3 of 4: Setup cron job
 
 1. Set up a cron job to execute `./bin/post_commit run`.
 
@@ -64,6 +84,7 @@ Rather than deleting log files, truncate them with `./bin/post_commit empty-logs
 | basename | description |
 |----------|----------|
 | _orders.txt_ | A running list of incoming pings.  |
+| _last.json_ | The payload from the last ping. |
 | _pending.txt_ | Authorized jobs that are waiting to be run. |
 | _complete.txt_ | All jobs that have been run.  These have been moved from pending. |
 | _cron.txt_ | Output from the cron job that controls the runner. |

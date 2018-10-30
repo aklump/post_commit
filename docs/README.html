@@ -37,11 +37,11 @@
 
 <h2>Quick Start</h2>
 
-<h3>Part 1 of 3</h3>
+<h3>Part 1 of 4</h3>
 
 <ol>
 <li>Install in your repository root using <code>cloudy pm-install aklump/post_commit</code></li>
-<li>Open <em>bin/config/post_commit.yml</em> and set configuration.</li>
+<li>Open <em>bin/config/post_commit.yml</em> and set configuration.  I encourage you to use wildcards for the repository and branch at first to get things working; you can tighten that up later.</li>
 <li>Create the <em>logs</em> directory as configured in the previous step; be sure to <strong>ignore this file</strong> in SCM.</li>
 <li>Open <em>bin/config/post_commit.local.yml</em> and modify as needed; be sure to <strong>ignore this file</strong> in SCM.</li>
 <li>Modify as needed and add <em>bin/auto_deploy.sh</em> to SCM.</li>
@@ -53,7 +53,33 @@
   <p>Pro Tip: Run <code>./bin/post_commit config-check</code> at any time to reveal configuration problems.</p>
 </blockquote>
 
-<h3>Part 2 of 3: Register Web Hook</h3>
+<h3>Part 2 of 4: Test Endpoint</h3>
+
+<ol>
+<li><p>Determine the URL endpoint of the webhook, e.g.,</p>
+
+<pre><code>https://{website}/scheduler.php?key={url_private}
+</code></pre></li>
+<li><p>If you the site is HTTP Authorized, you will need to add credentials to the URL:</p>
+
+<pre><code>https://{user}:{password}@{website}/scheduler.php?key={url_private}
+</code></pre></li>
+<li>Begin monitoring the <em>pending.txt</em> log using <code>tail -f pending.txt</code>.</li>
+<li><p>Open the endpoint in your browser, you should see something like:</p>
+
+<pre><code>origin user:
+repo:
+branch: *
+PHP user: apache
+127.0.0.1
+Tue, 30 Oct 2018 11:25:09 -0700
+jobs added: 1
+--------------------------------------------------------------------------------
+</code></pre></li>
+<li>Assert that the absolute path to the job is appended to <em>pending.txt</em>.</li>
+</ol>
+
+<h3>Part 2 of 4: Register Web Hook</h3>
 
 <ol>
 <li>Log in to your server and <code>cd</code> to the logs directory.</li>
@@ -67,9 +93,6 @@ branch: *
 </code></pre></li>
 <li><p>Compile the post commit hook url and add it to your github project.</p>
 
-<pre><code>    https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
-</code></pre>
-
 <ul>
 <li>Keep the key in the url, do not use the secret textfield.</li>
 <li>Choose the json format.</li>
@@ -80,7 +103,7 @@ branch: *
 
 <p><img src="images/webhook.png" alt="GitHub Webhook" /></p>
 
-<h3>Part 3 of 3: Setup cron job</h3>
+<h3>Part 3 of 4: Setup cron job</h3>
 
 <ol>
 <li><p>Set up a cron job to execute <code>./bin/post_commit run</code>.</p>
@@ -111,6 +134,10 @@ branch: *
 <tr>
   <td><em>orders.txt</em></td>
   <td>A running list of incoming pings.</td>
+</tr>
+<tr>
+  <td><em>last.json</em></td>
+  <td>The payload from the last ping.</td>
 </tr>
 <tr>
   <td><em>pending.txt</em></td>
@@ -237,7 +264,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:47:49 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 11:30:54 -0700</p>
   </div>
 </footer>
 
