@@ -81,17 +81,17 @@ branch: *
 <h3>Setup cron job</h3>
 
 <ol>
-<li>Set up a cron job to execute <code>runner.php</code>.</li>
+<li><p>Set up a cron job to execute <code>./bin/post_commit run</code>.</p>
+
+<pre><code>* * * * * ./bin/post_commit run &gt;&gt; /path/to/logs/cron.txt
+</code></pre></li>
 </ol>
 
 <p>This should be the target of a frequent cron job being run by the same user that owns the website files and <em>.git</em> folder.  This script processes any orders that were scheduled by <em>scheduler.php</em>.  You can redirect the output to <code>logs/cron.txt</code> file during setup, and once all is working you should consider doing like the second example which does not capture the output.</p>
 
-<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt;&gt; /home/user/mysite/opt/post_commit/logs/cron.txt
-</code></pre>
+<p>Example 2, no log of cron jobs, better once all is working correctly.  When all is well you should run <code>./bin/post_commit empty-logs</code> to flush the cron log.</p>
 
-<p>Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete <code>logs/cron.txt</code> at this point.</p>
-
-<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt; /dev/null
+<pre><code>* * * * * ./bin/post_commit run &gt; /dev/null
 </code></pre>
 
 <h2>Requirements</h2>
@@ -225,7 +225,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:08:27 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:18:55 -0700</p>
   </div>
 </footer>
 

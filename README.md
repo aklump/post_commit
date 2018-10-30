@@ -45,16 +45,15 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ### Setup cron job
 
-1. Set up a cron job to execute `runner.php`.
+1. Set up a cron job to execute `./bin/post_commit run`.
 
-This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
-
-    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php >> /home/user/mysite/opt/post_commit/logs/cron.txt
+        * * * * * ./bin/post_commit run >> /path/to/logs/cron.txt
     
+This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
+    
+Example 2, no log of cron jobs, better once all is working correctly.  When all is well you should run `./bin/post_commit empty-logs` to flush the cron log.
 
-Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete `logs/cron.txt` at this point.
-
-    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php > /dev/null
+    * * * * * ./bin/post_commit run > /dev/null
             
 ## Requirements
 
