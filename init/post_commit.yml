@@ -6,6 +6,7 @@ jobs:
     actions:
       - branch_name: "*"
         scripts:
+          - bin/auto_deploy.sh
       - branch_name: master
         scripts:
           - bin/auto_deploy.sh

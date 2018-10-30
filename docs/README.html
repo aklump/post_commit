@@ -110,18 +110,20 @@ branch: *
 <h3>Part 3 of 4: Setup cron job</h3>
 
 <ol>
-<li><p>Set up a cron job to execute <code>./bin/post_commit run</code>.</p>
+<li><p>Set up a cron job to execute <code>./bin/post_commit run</code> and log the output.</p>
 
-<pre><code>* * * * * ./bin/post_commit run &gt;&gt; /path/to/logs/cron.txt
+<pre><code>* * * * * ./bin/post_commit run &gt;&gt; /path/to/.../logs/cron.txt
 </code></pre></li>
-</ol>
-
-<p>This should be the target of a frequent cron job being run by the same user that owns the website files and <em>.git</em> folder.  This script processes any orders that were scheduled by <em>scheduler.php</em>.  You can redirect the output to <code>logs/cron.txt</code> file during setup, and once all is working you should consider doing like the second example which does not capture the output.</p>
-
-<p>Example 2, no log of cron jobs, better once all is working correctly.  When all is well you should run <code>./bin/post_commit empty-logs</code> to flush the cron log.</p>
+<li><p>Begin monitoring <em>cron.txt</em> using <code>tail -f cron.txt</code>.  Wait for the next cron run and assert content was appended to <em>cron.txt</em>.</p></li>
+<li><p>Now, test the whole setup by committing to your repo and asserting that <em>auto_pull.sh</em> was indeed executed by cron.</p></li>
+<li>Remove wildcards in the configuration <code>repository_name</code> and <code>branch_name</code> values as necessary.</li>
+<li><p>Disable cron logging in your crontab with:</p>
 
 <pre><code>* * * * * ./bin/post_commit run &gt; /dev/null
-</code></pre>
+</code></pre></li>
+<li><p>Lastly, run <code>./bin/post_commit empty-logs</code> to flush all logs.</p></li>
+<li>You're done.</li>
+</ol>
 
 <h2>About the Log Files</h2>
 
@@ -251,7 +253,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.7 &bull; Last Updated: Tue, 30 Oct 2018 11:39:33 -0700</p>
+    <p class="legaleeze center">Version: 1.0.8 &bull; Last Updated: Tue, 30 Oct 2018 11:49:50 -0700</p>
   </div>
 </footer>
 
