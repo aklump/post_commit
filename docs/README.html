@@ -12,7 +12,7 @@
   <div class="pager">
   <a href="index.html" class="prev index">&laquo;Index</a>
   <a href="index.html" class="index">Index</a>
-  <a href="overview.html" class="next overview">Post Commit&raquo;</a>
+  <a href="index.html" class="next index">Index&raquo;</a>
 </div>
 </header>
 
@@ -31,19 +31,40 @@
 
 <h2>Summary</h2>
 
+<p>Provides an endpoint to your website to use as a webhook for git post commit hooks.  When triggered the endpoint will queue a <code>git pull</code> to be executed by cron.  This allows you to automate a deployment (plus whatever you want, e.g. Drupal cache clear), whenever you push to your repository.  By leveraging cron, you can keep tight permissions and run your git pull as the cron user, not, say, <code>apache</code>.  Intended to be used for staging websites, rather than production, where you would want to deploy manually.</p>
+
 <p><strong>Visit <a href="https://aklump.github.io/post_commit">https://aklump.github.io/post_commit</a> for full documentation.</strong></p>
 
 <h2>Quick Start</h2>
 
-<ul>
+<ol>
 <li>Install in your repository root using <code>cloudy pm-install aklump/post_commit</code></li>
-<li>Open <em>bin/config/post_commit.yml</em> and modify as needed.</li>
-<li>Open <em>bin/config/post_commit.local.yml</em> and ...</li>
-</ul>
+<li>Open <em>bin/config/post_commit.yml</em> and set configuration.</li>
+<li>Create the <em>logs</em> directory as configured in the previous step.</li>
+<li>Open <em>bin/config/post_commit.local.yml</em> and modify as needed; be sure to <strong>ignore this file</strong> in SCM.</li>
+<li>Modify as needed and add <em>bin/auto_deploy.sh</em> to SCM.</li>
+<li><p>Set the correct ownership and permissions on <em>opt/post_commit/logs</em>; they must be owned by the user that will run cron and the group must be the php user (you can see this by visiting the testing url per directions below) who will be executing <em>scheduler.php</em>.  Owner/Group privelages must be both RW.  Other needs no permissions.</p>
+
+<pre><code>drwxr-xr-x 2 aklump apache 4.0K May 28 17:02 .
+drwxr-xr-x 5 aklump staff  4.0K May 28 17:01 ..
+-rw-rw---- 1 aklump apache    0 May 28 17:16 complete.txt
+-rw-rw---- 1 aklump apache    0 May 28 17:16 orders.txt
+-rw-rw---- 1 aklump apache    0 May 28 17:16 pending.txt      
+</code></pre></li>
+<li><p>Set up a cron job to execute <code>runner.php</code> (see below).</p></li>
+<li><p>Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.</p>
+
+<pre><code>https://user:password@website.com/scheduler.php?key=yourprivatekeyhere
+</code></pre></li>
+<li><p>Now make a commit to your repo and the website should update itself.</p></li>
+</ol>
 
 <h2>Requirements</h2>
 
-<p>You must have <a href="https://github.com/aklump/cloudy">Cloudy</a> installed on your system to install this package.</p>
+<ul>
+<li><p>You must have <a href="https://github.com/aklump/cloudy">Cloudy</a> installed on your system to install this package.</p></li>
+<li><p>Your repository may not use a passphrase, as this prevents the automatic git pull.</p></li>
+</ul>
 
 <h2>Installation</h2>
 
@@ -89,15 +110,13 @@
   <td>Configuration overrides for a single environment; not version controlled.</td>
   <td>no</td>
 </tr>
+<tr>
+  <td>scheduler.php</td>
+  <td>This should be pinged by a post commit hook on the origin repo via https and including the secret key.</td>
+  <td>yes</td>
+</tr>
 </tbody>
 </table>
-
-<h3>Custom Configuration</h3>
-
-<ul>
-<li>lorem</li>
-<li>ipsum</li>
-</ul>
 
 <h2>Usage</h2>
 
@@ -108,6 +127,67 @@
 <h2>Contributing</h2>
 
 <p>If you find this project useful... please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4E5KZHDQCEUV8&amp;item_name=Gratitude%20for%20aklump%2Fpost_commit">making a donation</a>.</p>
+
+<h3>Testing</h3>
+
+<ol>
+<li>Place the url you've created in a browser and look for output.</li>
+<li>If the screen is white, look in your server error logs.</li>
+</ol>
+
+<p>You can test a single repository by appending the following to the url, for the purposes of testing.</p>
+
+<pre><code>&amp;repo=jquery.slim_time
+</code></pre>
+
+<p>You can trigger a single branch response by appending the following to the url, for the purposes of testing.</p>
+
+<pre><code>&amp;branch=master
+</code></pre>
+
+<h2>runner.php</h2>
+
+<p>This should be the target of a frequent cron job being run by the same user that owns the website files and <em>.git</em> folder.  This script processes any orders that were scheduled by <em>scheduler.php</em>.  You can redirect the output to <code>logs/cron.txt</code> file during setup, and once all is working you should consider doing like the second example which does not capture the output.</p>
+
+<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt;&gt; /home/user/mysite/opt/post_commit/logs/cron.txt
+</code></pre>
+
+<p>Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete <code>logs/cron.txt</code> at this point.</p>
+
+<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt; /dev/null
+</code></pre>
+
+<h2>orders.txt</h2>
+
+<p><strong>You can truncate all text files without messing up perms using <em>reset.php</em>.</strong></p>
+
+<p>A log of incoming orders post commit hooks.</p>
+
+<h2>complete.txt</h2>
+
+<p>A log of <em>runner.php</em>.</p>
+
+<h2>pending.txt</h2>
+
+<p>The commands that have not yet been executed by cron.  This file should get emptied at each cron run.</p>
+
+<h2>To dump all logs and cancel standing orders</h2>
+
+<p>Don't just delete the log files as permissions are bit tricky; instead use the reset script.</p>
+
+<pre><code>php reset.php
+</code></pre>
+
+<h2>Troubleshooting</h2>
+
+<h3>Jobs get scheduled but not run?</h3>
+
+<ol>
+<li><p>Check to make sure the the logs directory and all log files are owned by the cron user and the group is the php user and that both user and group has rw permissions.</p></li>
+<li><p>Does the git repo require a passphrase for pulling?  You will have to disable that.</p></li>
+<li><p>Try logging in to the server as the cron user and running the command.</p></li>
+<li><p>Make sure you can git pull manually using your ssh keys, etc.</p></li>
+</ol>
 </section>
 
 <div class="search__results">
@@ -118,11 +198,11 @@
   <div class="pager">
   <a href="index.html" class="prev index">&laquo;Index</a>
   <a href="index.html" class="index">Index</a>
-  <a href="overview.html" class="next overview">Post Commit&raquo;</a>
+  <a href="index.html" class="next index">Index&raquo;</a>
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 0.4.15 &bull; Last Updated: Mon, 29 Oct 2018 11:46:14 -0700</p>
+    <p class="legaleeze center">Version: 0.4.15 &bull; Last Updated: Mon, 29 Oct 2018 18:42:38 -0700</p>
   </div>
 </footer>
 
