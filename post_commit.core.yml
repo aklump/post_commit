@@ -7,7 +7,7 @@ default_command: help
 commands:
   empty-logs:
     help: 'Safely empty all log files without affecting permissions'
-    aliases: ['logs']
+    aliases: [logs]
   json-config:
     help: 'Echo the configuration as JSON.'
   init:
@@ -25,5 +25,5 @@ translate:
     en: null
 name: 'Post Commit'
 description: 'A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.'
-version: 1.0.4
+version: 1.0.5
 author: 'Aaron Klump <sourcecode@intheloftstudios.com>'
