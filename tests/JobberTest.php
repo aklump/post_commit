@@ -3,9 +3,8 @@
  * @file
  * PHPUnit tests for the Jobber class
  */
-namespace AKlump\PostCommit;
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
+namespace AKlump\PostCommit;
 
 class JobberTest extends \PHPUnit_Framework_TestCase {
 
@@ -38,5 +37,5 @@ class JobberTest extends \PHPUnit_Framework_TestCase {
 
     $obj = new Jobber(dirname(__FILE__) . '/testlogs/pending.txt');
     $this->assertTrue($obj->hasJobs());
-  } 
+  }
 }

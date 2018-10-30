@@ -47,8 +47,6 @@ $conf = array_filter([
     'timezone_name' => 'UTC',
   ];
 
-$conf['jobber'] = new Jobber($conf['logs_dir'] . '/pending.txt');
-
 // Translate the YAML format to the legacy config format.
 $conf['jobs'] = [];
 foreach ($untranslated_config['jobs'] as $repository) {
@@ -62,3 +60,5 @@ foreach ($untranslated_config['jobs'] as $repository) {
     $conf['jobs'][$repository['repository_name']] = $actions;
   }
 }
+
+$conf['jobber'] = new Jobber($conf['logs_dir'] . '/pending.txt');

@@ -3,9 +3,8 @@
  * @file
  * PHPUnit tests for the Config class
  */
-namespace AKlump\PostCommit;
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
+namespace AKlump\PostCommit;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase {
 
@@ -24,7 +23,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $conf['jobs']['*']['refs/heads/master'][] = 're';
     $conf['jobs']['*']['refs/heads/master'][] = 'mi';
     $obj = new Config($conf);
-    
+
     $obj->setName('jquery.slim_time')->setBranch('refs/heads/develop');
     $this->assertCount(0, $obj->getJobs());
     $control = array('re', 'mi');
@@ -38,7 +37,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $conf['jobs']['jquery.slim_time']['refs/heads/master'] = array('re');
     $conf['jobs']['jquery.running_clock']['*'] = array('mi');
     $obj = new Config($conf);
-    
+
     $obj->setName('jquery.slim_time')->setBranch('refs/heads/develop');
     $control = array('do');
     $this->assertSame($control, $obj->getJobs());
@@ -54,7 +53,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     $control = array('re');
     $this->assertSame($control, $obj->getJobs());
   }
-  
+
   public function testJobsGlobalAndNameAllBranches() {
     $conf = array();
     $conf['jobs']['*']['*'] = array('do');

@@ -3,11 +3,11 @@
  * @file
  * PHPUnit tests for the Github class
  */
+
 namespace AKlump\PostCommit;
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
-
 class GithubTest extends \PHPUnit_Framework_TestCase {
+
   public function testIsUnderstood() {
     $subject = <<<EOD
 {
@@ -24,7 +24,7 @@ EOD;
     $this->assertSame('aklump/jquery.slim_time', $obj->getRepoName());
     $this->assertSame('aklump', $obj->getUsername());
     $this->assertSame('*', $obj->getBranch());
-  
+
     $obj->setContent('doremi');
     $this->assertFalse($obj->isUnderstood());
     $this->assertEmpty($obj->getRepoName());
