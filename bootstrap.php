@@ -33,7 +33,7 @@ function resolve($path) {
   return realpath($path);
 }
 
-$json = exec(__DIR__ . '/post_commit.sh get_config');
+$json = exec(__DIR__ . '/post_commit.sh json-config');
 if (!$untranslated_config = json_decode($json, TRUE)) {
   throw new \RuntimeException("The configuration is corrupt.");
 }

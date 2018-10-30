@@ -53,7 +53,7 @@ case $command in
         exit_with_success "Initialization successfully completed."
         ;;
 
-    "get_config")
+    "json-config")
         eval $(get_config_path_as abs_logs_dir "logs_dir")
         exit_with_failure_if_config_is_not_path "abs_logs_dir"
         json=$CLOUDY_CONFIG_JSON
