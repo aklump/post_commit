@@ -12,7 +12,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 1. Install in your repository root using `cloudy pm-install aklump/post_commit`
 1. Open _bin/config/post_commit.yml_ and set configuration.
-1. Create the _logs_ directory as configured in the previous step.
+1. Create the _logs_ directory as configured in the previous step; be sure to **ignore this file** in SCM.
 1. Open _bin/config/post_commit.local.yml_ and modify as needed; be sure to **ignore this file** in SCM.
 1. Modify as needed and add _bin/auto_deploy.sh_ to SCM.
 1. Set the correct ownership and permissions on _opt/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user (you can see this by visiting the testing url per directions below) who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.  Other needs no permissions.
