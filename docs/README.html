@@ -76,6 +76,7 @@ jobs added: 1
 <li>Begin monitoring the <em>complete.txt</em> log using <code>tail -f complete.txt</code>.</li>
 <li>Manually run the jobs with <code>./bin/post_commit run</code>.</li>
 <li>Assert you see output from your job in <em>complete.txt</em>.</li>
+<li>If you wish to test your endpoint response to a certain repo or branch, use <code>?&amp;repo={repo}&amp;branch={master}</code>.</li>
 </ol>
 
 <h3>Part 2 of 4: Register Web Hook</h3>
@@ -226,23 +227,6 @@ branch: *
 
 <p>If you find this project useful... please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4E5KZHDQCEUV8&amp;item_name=Gratitude%20for%20aklump%2Fpost_commit">making a donation</a>.</p>
 
-<h3>Testing</h3>
-
-<ol>
-<li>Place the url you've created in a browser and look for output.</li>
-<li>If the screen is white, look in your server error logs.</li>
-</ol>
-
-<p>You can test a single repository by appending the following to the url, for the purposes of testing.</p>
-
-<pre><code>&amp;repo=jquery.slim_time
-</code></pre>
-
-<p>You can trigger a single branch response by appending the following to the url, for the purposes of testing.</p>
-
-<pre><code>&amp;branch=master
-</code></pre>
-
 <h2>Troubleshooting</h2>
 
 <h3>Jobs get scheduled but not run?</h3>
@@ -267,7 +251,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 11:34:51 -0700</p>
+    <p class="legaleeze center">Version: 1.0.7 &bull; Last Updated: Tue, 30 Oct 2018 11:39:33 -0700</p>
   </div>
 </footer>
 
