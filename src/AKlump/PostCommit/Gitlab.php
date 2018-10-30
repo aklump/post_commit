@@ -2,10 +2,10 @@
 namespace AKlump\PostCommit;
 
 /**
- * Represents a Gitlab Translator.
+ * Represents a GitLab Translator.
  */
-class Gitlab extends Translator {
-  
+class GitLab extends Translator {
+
   public function isUnderstood() {
     if (!($json = json_decode($this->getContent()))) {
       return FALSE;

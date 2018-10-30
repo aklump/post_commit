@@ -1,12 +1,12 @@
 <?php
 /**
  * @file
- * PHPUnit tests for the Github class
+ * PHPUnit tests for the GitHub class
  */
 
 namespace AKlump\PostCommit;
 
-class GithubTest extends \PHPUnit_Framework_TestCase {
+class GitHubTest extends \PHPUnit_Framework_TestCase {
 
   public function testIsUnderstood() {
     $subject = <<<EOD

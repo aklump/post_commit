@@ -24,8 +24,8 @@ if ($access) {
   file_put_contents($conf['logs_dir'] . '/last.json', $contents);
 
   $translators = array();
-  $translators[] = new Github($contents);
-  $translators[] = new Gitlab($contents);
+  $translators[] = new GitHub($contents);
+  $translators[] = new GitLab($contents);
   foreach ($translators as $data) {
     if ($data->isUnderstood()) {
       break;

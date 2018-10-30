@@ -1,12 +1,12 @@
 <?php
 /**
  * @file
- * PHPUnit tests for the Gitlab class
+ * PHPUnit tests for the GitLab class
  */
 
 namespace AKlump\PostCommit;
 
-class GitlabTest extends \PHPUnit_Framework_TestCase {
+class GitLabTest extends \PHPUnit_Framework_TestCase {
 
   public function testIsUnderstood() {
     $subject = <<<EOD
@@ -18,7 +18,7 @@ class GitlabTest extends \PHPUnit_Framework_TestCase {
     "ref": "refs/heads/master"
 }    
 EOD;
-    $obj = new Gitlab($subject);
+    $obj = new GitLab($subject);
     $this->assertTrue($obj->isUnderstood());
     $this->assertSame('intheloftstudios', $obj->getRepoName());
     $this->assertSame('aklump', $obj->getUsername());
