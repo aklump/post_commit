@@ -45,7 +45,31 @@
 <li>Modify as needed and add <em>bin/auto_deploy.sh</em> to SCM.</li>
 <li>Run <code>./bin/post_commit init</code> to finish installing.</li>
 <li>Give write permissions to both owner and group for <em>logs/*</em>, e.g. <code>chmod -R ug+w logs</code></li>
-<li>Set up a cron job to execute <code>runner.php</code> (see below).</li>
+</ol>
+
+<blockquote>
+  <p>Pro Tip: Run <code>./bin/post_commit config-check</code> at any time to reveal configuration problems.</p>
+</blockquote>
+
+<h3>Setup cron job</h3>
+
+<ol>
+<li>Set up a cron job to execute <code>runner.php</code>.</li>
+</ol>
+
+<p>This should be the target of a frequent cron job being run by the same user that owns the website files and <em>.git</em> folder.  This script processes any orders that were scheduled by <em>scheduler.php</em>.  You can redirect the output to <code>logs/cron.txt</code> file during setup, and once all is working you should consider doing like the second example which does not capture the output.</p>
+
+<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt;&gt; /home/user/mysite/opt/post_commit/logs/cron.txt
+</code></pre>
+
+<p>Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete <code>logs/cron.txt</code> at this point.</p>
+
+<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt; /dev/null
+</code></pre>
+
+<h3>GitHub: Register Web Hook</h3>
+
+<ol>
 <li><p>Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.</p>
 
 <pre><code>https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
@@ -140,18 +164,6 @@
 <pre><code>&amp;branch=master
 </code></pre>
 
-<h2>runner.php</h2>
-
-<p>This should be the target of a frequent cron job being run by the same user that owns the website files and <em>.git</em> folder.  This script processes any orders that were scheduled by <em>scheduler.php</em>.  You can redirect the output to <code>logs/cron.txt</code> file during setup, and once all is working you should consider doing like the second example which does not capture the output.</p>
-
-<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt;&gt; /home/user/mysite/opt/post_commit/logs/cron.txt
-</code></pre>
-
-<p>Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete <code>logs/cron.txt</code> at this point.</p>
-
-<pre><code>* * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php &gt; /dev/null
-</code></pre>
-
 <h2>orders.txt</h2>
 
 <p><strong>You can truncate all text files without messing up perms using <em>reset.php</em>.</strong></p>
@@ -197,7 +209,7 @@
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 09:06:26 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 09:10:14 -0700</p>
   </div>
 </footer>
 

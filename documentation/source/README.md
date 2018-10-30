@@ -17,7 +17,24 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 1. Modify as needed and add _bin/auto_deploy.sh_ to SCM.
 1. Run `./bin/post_commit init` to finish installing.
 1. Give write permissions to both owner and group for _logs/*_, e.g. `chmod -R ug+w logs`
-1. Set up a cron job to execute `runner.php` (see below).
+
+> Pro Tip: Run `./bin/post_commit config-check` at any time to reveal configuration problems.
+
+### Setup cron job
+
+1. Set up a cron job to execute `runner.php`.
+
+This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
+
+    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php >> /home/user/mysite/opt/post_commit/logs/cron.txt
+    
+
+Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete `logs/cron.txt` at this point.
+
+    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php > /dev/null
+
+### GitHub: Register Web Hook
+
 1. Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.
 
         https://{user}:{password}@{website}/scheduler.php?key={yourprivatekeyhere}
@@ -82,17 +99,6 @@ You can trigger a single branch response by appending the following to the url, 
 
     &branch=master
     
-
-## runner.php
-
-This should be the target of a frequent cron job being run by the same user that owns the website files and _.git_ folder.  This script processes any orders that were scheduled by _scheduler.php_.  You can redirect the output to `logs/cron.txt` file during setup, and once all is working you should consider doing like the second example which does not capture the output.
-
-    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php >> /home/user/mysite/opt/post_commit/logs/cron.txt
-    
-
-Example 2, no log of cron jobs, better once all is working correctly.  You might want to delete `logs/cron.txt` at this point.
-
-    * * * * * /usr/bin/php /home/user/mysite/opt/post_commit/runner.php > /dev/null
 
 ## orders.txt
 
