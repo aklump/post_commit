@@ -52,6 +52,11 @@ case $command in
         exit_with_success "Config OK."
         ;;
 
+    "run")
+        php "$ROOT/runner.php" || exit_with_failure "Failed to run jobs."
+        exit_with_success "All jobs have been run."
+        ;;
+
     "empty-logs")
         php "$ROOT/reset.php" || exit_with_failure "Could not empty logs."
         exit_with_success "Logs are empty."

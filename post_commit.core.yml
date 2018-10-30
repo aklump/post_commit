@@ -8,6 +8,8 @@ commands:
   config-check:
     help: 'Diagnose any configuration problems'
     aliases: [configcheck]
+  run:
+    help: 'Run all queued jobs; this should be used by cron.'
   empty-logs:
     help: 'Safely empty all log files without affecting permissions'
     aliases: [logs]

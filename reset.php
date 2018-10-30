@@ -14,3 +14,4 @@ foreach (glob($conf['logs_dir'] . '/*.txt') as $file) {
   $log = new Logger($file);
   $log->truncate();
 }
+exit(0);

@@ -12,10 +12,12 @@ global $conf;
 require_once dirname(__FILE__) . '/bootstrap.php';
 
 if (!($jobs = $conf['jobber']->hasJobs())) {
-  die('No jobs pending.' . PHP_EOL);
+  echo 'No jobs pending.';
+  exit(0);
 }
 elseif (!($fh = $conf['jobber']->getJobsFileHandle('r+'))) {
-  die('Already processing jobs. Abort.' . PHP_EOL);
+  echo 'Already processing jobs. Abort.';
+  exit(1);
 }
 
 $log = new Logger($conf['logs_dir'] . '/complete.txt');
@@ -37,4 +39,4 @@ while ($cmd = $conf['jobber']->takeNextJob()) {
   $log->close();
 }
 
-exit;
+exit(0);
