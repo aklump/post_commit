@@ -4,7 +4,7 @@
 
 ## Summary
 
-Provides an endpoint to your website to use as a webhook for git post commit hooks.  When triggered the endpoint will queue a `git pull` to be executed by cron.  This allows you to automate a deployment (plus whatever you want, e.g. Drupal cache clear), whenever you push to your repository.  By leveraging cron, you can keep tight permissions and run your git pull as the cron user, not, say, `apache`.  Intended to be used for staging websites, rather than production, where you would want to deploy manually.
+Provides an endpoint to your website to use as a webhook for git post commit hooks.  When triggered the endpoint will queue a `git pull` to be executed by cron.  This allows you to automate a deployment (plus whatever you want, e.g. Drupal cache clear), whenever you push to your repository.  By leveraging cron, you can keep tight permissions and run your git pull as the cron user, not, say, `apache`.  Intended to be used for staging websites, rather than production where you would want to deploy manually.
 
 **Visit <https://aklump.github.io/post_commit> for full documentation.**
 
@@ -45,7 +45,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 1. Assert you see output from your job in _complete.txt_.
 1. If you wish to test your endpoint response to a certain repo or branch, use `?&repo={repo}&branch={master}`. 
 
-### Part 2 of 4: Register Web Hook
+### Part 3 of 4: Register Web Hook
 
 1. Log in to your server and `cd` to the logs directory.
 1. Begin monitoring the _orders.txt_ log using `tail -f orders.txt`.  When you save your webhook below, you should see content appended--a new order--which indicates things are working correctly.  It will resemble:
@@ -85,6 +85,8 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 1. Lastly, run `./bin/post_commit empty-logs` to flush all logs.
 1. You're done.
+
+---
             
 ## About the Log Files
 
@@ -137,10 +139,6 @@ The installation script above will generate the following structure where `.` is
 
 * To see all commands use `./bin/post_commit help`
 
-## Contributing
-
-If you find this project useful... please consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4E5KZHDQCEUV8&item_name=Gratitude%20for%20aklump%2Fpost_commit).
-
 ## Troubleshooting
 
 ### Jobs get scheduled but not run?
@@ -153,3 +151,6 @@ If you find this project useful... please consider [making a donation](https://w
 
 1. Make sure you can git pull manually using your ssh keys, etc.
 
+## Contributing
+
+If you find this project useful... please consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4E5KZHDQCEUV8&item_name=Gratitude%20for%20aklump%2Fpost_commit).
