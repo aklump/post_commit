@@ -15,14 +15,8 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 1. Create the _logs_ directory as configured in the previous step; be sure to **ignore this file** in SCM.
 1. Open _bin/config/post_commit.local.yml_ and modify as needed; be sure to **ignore this file** in SCM.
 1. Modify as needed and add _bin/auto_deploy.sh_ to SCM.
-1. Set the correct ownership and permissions on _opt/post_commit/logs_; they must be owned by the user that will run cron and the group must be the php user (you can see this by visiting the testing url per directions below) who will be executing _scheduler.php_.  Owner/Group privelages must be both RW.  Other needs no permissions.
-
-        drwxr-xr-x 2 aklump apache 4.0K May 28 17:02 .
-        drwxr-xr-x 5 aklump staff  4.0K May 28 17:01 ..
-        -rw-rw---- 1 aklump apache    0 May 28 17:16 complete.txt
-        -rw-rw---- 1 aklump apache    0 May 28 17:16 orders.txt
-        -rw-rw---- 1 aklump apache    0 May 28 17:16 pending.txt      
-
+1. Run `./bin/post_commit init` to finish installing.
+1. Give write permissions to both owner and group for _logs/*_, e.g. `chmod -R ug+w logs`
 1. Set up a cron job to execute `runner.php` (see below).
 1. Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.
 

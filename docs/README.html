@@ -43,15 +43,9 @@
 <li>Create the <em>logs</em> directory as configured in the previous step; be sure to <strong>ignore this file</strong> in SCM.</li>
 <li>Open <em>bin/config/post_commit.local.yml</em> and modify as needed; be sure to <strong>ignore this file</strong> in SCM.</li>
 <li>Modify as needed and add <em>bin/auto_deploy.sh</em> to SCM.</li>
-<li><p>Set the correct ownership and permissions on <em>opt/post_commit/logs</em>; they must be owned by the user that will run cron and the group must be the php user (you can see this by visiting the testing url per directions below) who will be executing <em>scheduler.php</em>.  Owner/Group privelages must be both RW.  Other needs no permissions.</p>
-
-<pre><code>drwxr-xr-x 2 aklump apache 4.0K May 28 17:02 .
-drwxr-xr-x 5 aklump staff  4.0K May 28 17:01 ..
--rw-rw---- 1 aklump apache    0 May 28 17:16 complete.txt
--rw-rw---- 1 aklump apache    0 May 28 17:16 orders.txt
--rw-rw---- 1 aklump apache    0 May 28 17:16 pending.txt      
-</code></pre></li>
-<li><p>Set up a cron job to execute <code>runner.php</code> (see below).</p></li>
+<li>Run <code>./bin/post_commit init</code> to finish installing.</li>
+<li>Give write permissions to both owner and group for <em>logs/*</em>, e.g. <code>chmod -R ug+w logs</code></li>
+<li>Set up a cron job to execute <code>runner.php</code> (see below).</li>
 <li><p>Compile the post commit hook url and add it to your github project.  Keep the key in the url, do not use the secret textfield.  Also you will want to choose the json format.  Make sure to use https if you can, a self-signed cert should work fine.</p>
 
 <pre><code>https://user:password@website.com/scheduler.php?key=yourprivatekeyhere
@@ -202,7 +196,7 @@ drwxr-xr-x 5 aklump staff  4.0K May 28 17:01 ..
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.4 &bull; Last Updated: Mon, 29 Oct 2018 19:15:59 -0700</p>
+    <p class="legaleeze center">Version: 1.0.4 &bull; Last Updated: Mon, 29 Oct 2018 20:30:49 -0700</p>
   </div>
 </footer>
 
