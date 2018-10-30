@@ -5,8 +5,11 @@
  *
  * Hit this with cron on a pretty frequent basis.
  */
-use \AKlump\PostCommit\Logger;
-require_once dirname(__FILE__) . '/vendor/autoload.php';
+
+use AKlump\PostCommit\Logger;
+
+global $conf;
+require_once dirname(__FILE__) . '/bootstrap.php';
 
 if (!($jobs = $conf['jobber']->hasJobs())) {
   die('No jobs pending.' . PHP_EOL);
@@ -27,7 +30,7 @@ while ($cmd = $conf['jobber']->takeNextJob()) {
 
   $process_handle = popen("$cmd 2>&1", 'r');
   if ($result = stream_get_contents($process_handle)) {
-    $log->append($result);  
+    $log->append($result);
   }
   pclose($process_handle);
 

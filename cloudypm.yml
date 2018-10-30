@@ -1,0 +1,5 @@
+name: aklump/post_commit
+clone_from: https://github.com/aklump/post_commit
+entry_script: post_commit.sh
+entry_symlink: post_commit
+on_install: init

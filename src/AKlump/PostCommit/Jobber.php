@@ -1,4 +1,5 @@
 <?php
+
 namespace AKlump\PostCommit;
 
 /**
@@ -15,7 +16,7 @@ class Jobber {
   public function __construct($jobs_file = '') {
     $this->setJobsFile($jobs_file);
   }
-  
+
   /**
    * Return a locked file handle to jobs_file.
    *
@@ -26,13 +27,13 @@ class Jobber {
   public function getJobsFileHandle($mode = 'r+') {
     if (!empty($this->fh)) {
       fclose($this->fh);
-    }    
+    }
     if (($this->fh = fopen($this->getJobsFile(), $mode))) {
       if (flock($this->fh, LOCK_EX)) {
         return $this->fh;
       }
     }
-  
+
     return FALSE;
   }
 
@@ -51,10 +52,10 @@ class Jobber {
    */
   public function setJobsFile($jobs_file) {
     $this->data['jobs_file'] = (string) $jobs_file;
-  
+
     return $this;
   }
-  
+
   /**
    * Return the jobs_file.
    *
@@ -82,9 +83,11 @@ class Jobber {
    * @return array
    */
   public function getJobs() {
-    $jobs = array();
-    $jobs = explode(PHP_EOL, file_get_contents($this->getJobsFile()));
-    $jobs = array_filter(array_unique($jobs));
+    $jobs = [];
+    if (is_file($this->getJobsFile())) {
+      $jobs = explode(PHP_EOL, file_get_contents($this->getJobsFile()));
+      $jobs = array_filter(array_unique($jobs));
+    }
 
     return $jobs;
   }

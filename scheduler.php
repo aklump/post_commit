@@ -3,8 +3,11 @@
  * @file
  * Ping handler for post-commit hook to schedule a develop pull job.
  */
+
 namespace AKlump\PostCommit;
-require_once dirname(__FILE__) . '/vendor/autoload.php';
+
+global $conf;
+require_once dirname(__FILE__) . '/bootstrap.php';
 
 // Make a note that we got hit.
 $log = new Logger($conf['logs_dir'] . '/orders.txt');
@@ -16,7 +19,7 @@ $access = !empty($_GET['key']) && $_GET['key'] === $conf['secret'];
 if ($access) {
 
   $contents = file_get_contents("php://input");
-  
+
   // Dump this for troubleshooting purposes.
   file_put_contents($conf['logs_dir'] . '/last.json', $contents);
 
@@ -54,7 +57,7 @@ if ($access) {
     $log->append('Invalid log configuration.');
   }
   elseif ($jobs && ($commands = $config->getJobs())) {
-    foreach ($commands  as $cmd) {
+    foreach ($commands as $cmd) {
       fwrite($jobs, $cmd . PHP_EOL);
       $log->header();
       ++$total_added;

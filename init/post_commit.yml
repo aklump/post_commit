@@ -1,0 +1,19 @@
+timezone_name: UTC
+logs_dir: logs
+web_root: web
+jobs:
+  - repository_name: "*"
+    actions:
+      - branch_name: "*"
+        scripts:
+      - branch_name: master
+        scripts:
+          - /var/www/dev.website.org/pull_master.sh
+      - branch_name: develop
+        scripts:
+          - /var/www/dev.website.org/pull_develop.sh
+  - repository_name: aklump/jquery.slim_time
+    actions:
+      - branch_name: master
+        scripts:
+        - /var/www/dev.website.org/pull_master.sh
