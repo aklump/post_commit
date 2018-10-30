@@ -1,4 +1,4 @@
-title: "Post Commit"
+title: 'Post Commit'
 config_path_base: ../../..
 additional_config:
   - ../../../bin/config/post_commit.yml
@@ -6,21 +6,21 @@ additional_config:
 default_command: help
 commands:
   get_config:
-    help: Echo the configuration as JSON.
+    help: 'Echo the configuration as JSON.'
   init:
-    help: Initialize local configuration files.
+    help: 'Initialize local configuration files.'
   help:
-    help: Show this help screen.
+    help: 'Show this help screen.'
   clear-cache:
     aliases: [clearcache, cc]
-    help: Clear all cached data.
+    help: 'Clear all cached data.'
 translate:
   ids:
-    - Completed successfully.
+    - 'Completed successfully.'
     - Failed.
   strings:
     en: null
 name: 'Post Commit'
 description: 'A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.'
-version: '0.4.15'
+version: '1.0'
 author: 'Aaron Klump <sourcecode@intheloftstudios.com>'

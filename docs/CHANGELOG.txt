@@ -1,4 +1,4 @@
-0.5.0
+1.0
 -----
 Changed format to be a Cloudy script. https://github.com/aklump/cloudy
 
