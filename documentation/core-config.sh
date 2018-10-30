@@ -49,7 +49,7 @@ README = '../README.md'
  # The file path to an extra CHANGELOG.txt file; when CHANGELOG.md is compiled and
  # this variable is set, the .txt version will be copied to this location.
  #
-#CHANGELOG = '../CHANGELOG.txt ../CHANGELOG.md'
+CHANGELOG = '../CHANGELOG.md'
 
 #root_dir = ""
 
