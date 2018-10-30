@@ -69,7 +69,7 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 
 ![GitHub Webhook](images/webhook.png)
 
-### Part 3 of 4: Setup cron job
+### Part 4 of 4: Setup cron job
 
 1. Set up a cron job to execute `./bin/post_commit run` and log the output.
 
