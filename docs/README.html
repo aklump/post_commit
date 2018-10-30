@@ -55,9 +55,10 @@
 
 <ol>
 <li>Log in to your server and <code>cd</code> to the logs directory.</li>
-<li><p>Begin a log monitor like so<code>tail -f orders.txt</code>.  When you save your webhook, you should see content appended to this, something like, which indicates things are working correctly.</p>
+<li><p>Begin monitoring the <em>orders.txt</em> log using <code>tail -f orders.txt</code>.  When you save your webhook below, you should see content appended--a new order--which indicates things are working correctly.  It will resemble:</p>
 
-<pre><code>origin user: aklump
+<pre><code>$ tail -f orders.txt
+origin user: aklump
 repo: aklump/post_commit
 branch: *
 --------------------------------------------------------------------------------
@@ -224,7 +225,7 @@ branch: *
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:05:28 -0700</p>
+    <p class="legaleeze center">Version: 1.0.6 &bull; Last Updated: Tue, 30 Oct 2018 10:08:27 -0700</p>
   </div>
 </footer>
 

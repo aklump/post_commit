@@ -23,8 +23,9 @@ Provides an endpoint to your website to use as a webhook for git post commit hoo
 ### GitHub: Register Web Hook
 
 1. Log in to your server and `cd` to the logs directory.
-1. Begin a log monitor like so`tail -f orders.txt`.  When you save your webhook, you should see content appended to this, something like, which indicates things are working correctly.
+1. Begin monitoring the _orders.txt_ log using `tail -f orders.txt`.  When you save your webhook below, you should see content appended--a new order--which indicates things are working correctly.  It will resemble:
 
+        $ tail -f orders.txt
         origin user: aklump
         repo: aklump/post_commit
         branch: *
