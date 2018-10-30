@@ -22,5 +22,5 @@ translate:
     en: null
 name: 'Post Commit'
 description: 'A post commit scheduler/runner for git repo pulling and auto deployment written in PHP focused on better security.'
-version: 1.0.1
+version: 1.0.2
 author: 'Aaron Klump <sourcecode@intheloftstudios.com>'
