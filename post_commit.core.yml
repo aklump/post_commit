@@ -1,8 +1,8 @@
 title: 'Post Commit'
 config_path_base: ../../..
 additional_config:
-  - ../../../bin/config/post_commit.yml
-  - ../../../bin/config/post_commit.local.yml
+  - bin/config/post_commit.yml
+  - bin/config/post_commit.local.yml
 default_command: help
 commands:
   config-check:
